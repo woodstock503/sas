@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.lao.saacplus</groupId>
+	<groupId>com.lao.saccplus</groupId>
 	<artifactId>saccPlus</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -70,11 +70,6 @@
 			<artifactId>richfaces-core-impl</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.7</version>
-		</dependency>
-		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>5.0.4</version>
@@ -99,6 +94,21 @@
 			<artifactId>all-themes</artifactId>
 			<version>1.0.9</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1-jenkins-1</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
@@ -116,6 +126,10 @@
 			<name>Unofficial PrimeFaces Maven Repository</name>
 			<url>http://primefaces.github.io/repository</url>
 			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>jenkins-releases</id>
+			<url>http://repo.jenkins-ci.org/releases/</url>
 		</repository>
 	</repositories>
 	<build>
