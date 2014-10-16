@@ -1,0 +1,167 @@
+<rich:toolbar xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core" itemSeparator="line"
+	height="26" styleClass="sas-ddMenu">
+
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<!-- 
+				<h:graphicImage value="/images/icons/copy.gif" styleClass="pic"
+					alt="copy" />
+					 -->
+				<h:outputText value="#{messages['rate_menu_group_name']}" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="#{messages['rate_menu_name']}" name="rate"
+			action="#{menuBean.rateMenu()}" />
+		<rich:menuItem label="รายงานสกุลเงิน" name="rateReport" />
+		<rich:menuItem label="#{messages['currency_menu_name']}" name="currency" 
+			action="#{menuBean.currencyMenu()}" />
+		<rich:menuItem label="Test Report" action="/reports/testReport?faces-redirect=true"/>
+	</rich:dropDownMenu>
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="#{messages['chartOfAccount_menu_group_name']}" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="#{messages['chartOfAccount_menu_name']}"
+			action="#{menuBean.chartOfAccountMenu()}" />
+		<rich:menuItem label="#{messages['chartOfAccount_menu_report']}"/>
+	</rich:dropDownMenu>
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="#{messages['jaurnalTransaction_group_name']}" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="#{messages['jaurnalTransaction_menu_name']}"
+			action="#{menuBean.journalTransactionMenu()}" />
+		<rich:menuItem label="#{messages['journalTransaction_menu_edit']}"
+			action="#{menuBean.journalTransactionEditMenu()}" />
+		<rich:menuItem label="แก้ไขรายการบัญชี 2"
+			action="#{menuBean.journalTransactionDetailEditMenu()}" />
+		<rich:menuItem label="#{messages['journalTransaction_menu_opening']}" 
+			action="#{menuBean.journalTransactionOpeningMenu()}" />
+		<rich:menuItem label="First Opening" 
+			action="#{menuBean.journalTransactionFirstOpeningMenu()}" />
+		<rich:menuItem label="#{messages['journalTransaction_menu_report']}" />
+	</rich:dropDownMenu>
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="#{messages['accounting_menu_group_report']}"/>
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuGroup label="#{messages['accounting_menu_sub_group_report']}">
+			<rich:menuItem label="#{messages['accounting_menu_daily_report']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['accounting_menu_daily_original_report']}"></rich:menuItem>
+		</rich:menuGroup>
+		<rich:menuGroup label="#{messages['accounting_menu_sub_group_report_type']}">
+			<rich:menuItem label="#{messages['accounting_menu_daily_type_report']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['accounting_menu_daily_type_original_report']}"></rich:menuItem>
+		</rich:menuGroup>
+		<rich:menuGroup label="#{messages['accounting_menu_sub_group_report_detail']}">
+			<rich:menuItem label="#{messages['accounting_menu_detail_reserve_report']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['accounting_menu_detail_general_report']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['accounting_menu_detail_rev_exp_report']}"></rich:menuItem>
+		</rich:menuGroup>
+		<rich:menuGroup label="#{messages['accounting_menu_sub_group_report_year']}">
+			<rich:menuItem label="#{messages['accounting_menu_detail_general_year_report']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['accounting_menu_detail_rev_exp_year_report']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['accounting_menu_detail_edited_report']}"></rich:menuItem>
+		</rich:menuGroup>
+	</rich:dropDownMenu>
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="#{messages['document_group_name']}" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuGroup label="#{messages['document_menu_sub_group_total']}">
+			<rich:menuItem label="#{messages['document_menu_total_asset']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['document_menu_total_debit']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['document_menu_total']}"></rich:menuItem>
+		</rich:menuGroup>
+		<rich:menuGroup label="#{messages['document_menu_sub_group_result']}">
+			<rich:menuItem label="#{messages['document_menu_result1']}"></rich:menuItem>
+			<rich:menuItem label="#{messages['document_menu_result2']}"></rich:menuItem>
+		</rich:menuGroup>
+	</rich:dropDownMenu>
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="#{messages['systemConfig_menu_group_name']}" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="#{messages['accountBook_menu_name']}"
+			name="accountBook"
+			action="#{menuBean.accountBookMenu()}" />
+		<rich:menuItem label="#{messages['accountType_menu_name']}"
+			name="accountType"
+			action="#{menuBean.accountTypeMenu()}" />
+		<rich:menuItem label="#{messages['accountYear_menu_name']}"
+			name="accountYear"
+			action="#{menuBean.accountYearMenu()}" />
+	</rich:dropDownMenu>
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="#{messages['security_menu_group_name']}" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="#{messages['userProfile_menu_name']}"	name="userProfile"
+			action="#{menuBean.userProfileMenu()}" />
+	</rich:dropDownMenu>
+	<rich:dropDownMenu label="Admin">
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="Admin" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="#{messages['branch_menu_name']}" name="branch"
+			action="#{menuBean.branchMenu()}" />
+		<rich:menuItem label="#{messages['company_menu_name']}" name="company"
+			action="#{menuBean.companyMenu()}" />
+		<rich:menuItem label="#{messages['department_menu_name']}" name="department"
+			action="#{menuBean.departmentMenu()}" />
+		<rich:menuItem label="#{messages['program_menu_name']}" name="program"
+			action="#{menuBean.programMenu()}" />
+		<rich:menuItem label="#{messages['period_menu_name']}" name="Period"
+			action="#{menuBean.periodMenu()}" />
+		<rich:menuItem label="#{messages['role_menu_name']}" name="role"
+			action="#{menuBean.roleMenu()}" />
+	</rich:dropDownMenu>
+	<!-- 
+	<rich:dropDownMenu>
+		<f:facet name="label">
+			<h:panelGroup>
+				<h:outputText value="Skin" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:menuItem label="Default" name="DEFAULT"
+			action="#{sessionBean.changeSkin('DEFAULT')}" />
+		<rich:menuItem label="Emerald Town" name="emeraldTown"
+			action="#{sessionBean.changeSkin('emeraldTown')}" />
+		<rich:menuItem label="Blue Sky" name="blueSky"
+			action="#{sessionBean.changeSkin('blueSky')}" />
+		<rich:menuItem label="Wine" name="wine"
+			action="#{sessionBean.changeSkin('wine')}" />
+		<rich:menuItem label="Japan Cherry" name="japanCherry"
+			action="#{sessionBean.changeSkin('japanCherry')}" />
+		<rich:menuItem label="Ruby" name="ruby"
+			action="#{sessionBean.changeSkin('ruby')}" />
+		<rich:menuItem label="Classic" name="classic"
+			action="#{sessionBean.changeSkin('classic')}" />
+		<rich:menuItem label="Deep Marine" name="deepMarine"
+			action="#{sessionBean.changeSkin('deepMarine')}" />
+	</rich:dropDownMenu>
+	 -->
+</rich:toolbar>

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{accountBalanceBean.page}" />
+		<f:event type="preRenderView"
+			listener="#{accountBalanceBean.paginate}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Account Balance entities" />
+
+	<ui:define name="header">
+		Account Balance
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Account Balance entities
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="accountBalanceBeanExampleOpeningAccountYear"
+							value="Opening Year:" />
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{accountYearBean.converter}"
+								id="accountBalanceBeanExampleOpeningAccountYear"
+								value="#{accountBalanceBean.example.openingAccountYear}">
+								<f:selectItem />
+								<f:selectItems value="#{accountYearBean.byCompany}" var="item"
+									itemLabel="#{sessionBean.formatDate(item.startDate,'yyyy')}">
+								</f:selectItems>
+							</h:selectOneMenu>
+							<h:message for="accountBalanceBeanExampleOpeningAccountYear"
+								styleClass="error" />
+						</h:panelGroup>
+						<h:commandButton value="Search"
+							action="#{accountBalanceBean.search}"
+							styleClass="btn btn-primary" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</f:validateBean>
+
+
+			<rich:dataTable id="accountBalanceBeanPageItems"
+				rendered="#{empty accountBalanceBean.accountBalanceList}"
+				styleClass="data-table" value="#{accountBalanceBean.pageItems}"
+				var="_item" style="width:100%">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Chart Of Account" />
+					</f:facet>
+
+					<h:outputText id="itemChartOfAccount"
+						value="#{_item.chartOfAccount}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description" />
+					</f:facet>
+					<h:outputText id="itemDescription" value="#{_item.description}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description(En)" />
+					</f:facet>
+					<h:outputText id="itemDescriptionEn" value="#{_item.descriptionEn}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Debit Balance" />
+					</f:facet>
+					<h:outputText id="itemDebitBalance" value="#{_item.debitBalance}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Credit Balance" />
+					</f:facet>
+					<h:outputText id="itemCreditBalance" value="#{_item.creditBalance}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Balance Account Year" />
+					</f:facet>
+					<h:outputText id="itemBalanceAccountYear"	value="#{_item.balanceAccountYear.startDate}" >
+						<f:convertDateTime type="date" pattern="yyyy" locale="en/US"/>
+					</h:outputText>
+				</h:column>
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{accountBalanceBean}" />
+			</ui:include>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

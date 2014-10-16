@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:form id="menuLeftForm">
+		<h:panelGrid columns="1" columnClasses="cols,cols" width="100%">
+			<rich:panelMenu style="width:100%" itemMode="server" groupMode="ajax"
+				groupExpandedLeftIcon="triangleUp"
+				groupCollapsedLeftIcon="triangleDown"
+				topGroupExpandedRightIcon="chevronUp"
+				topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc">
+				<rich:panelMenuGroup expanded="false" label="อัตราแลกเปลี่ยน">
+					<rich:panelMenuItem label="#{messages['rate_menu_name']}"
+						name="rate" action="/view/rate/search?faces-redirect=true" />
+					<rich:panelMenuItem label="รายงานสกุลเงิน" name="rateReport" />
+					<rich:panelMenuItem label="#{messages['currency_menu_name']}"
+						name="currency" action="/view/currency/search?faces-redirect=true" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup expanded="false" label="ສາລະບານບັນຊີ">
+					<rich:panelMenuItem label="#{messages['chartOfAccount_menu_name']}"
+						name="chartOfAccount"
+						action="/view/chartOfAccount?faces-redirect=true" />
+					<rich:panelMenuItem label="ລາຍງານສາລະບານບັນຊີ" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup expanded="false"
+					label="#{messages['jaurnalTransaction_group_name']}">
+					<rich:panelMenuItem
+						label="#{messages['jaurnalTransaction_menu_name']}"
+						name="jaurnalTransaction_menu_name"
+						action="/view/journalTransaction?faces-redirect=true" />
+					<rich:panelMenuItem label="ປັບປຸງບັນຊີເງີນຕາ" />
+					<rich:panelMenuItem label="ຍອດຍົກມາ" />
+					<rich:panelMenuItem label="ລາຍການເຄື່ອນໄຫວ" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup expanded="false" label="ລາຍງານບັນຊີ">
+					<rich:panelMenuGroup expanded="false" label="ລາຍງານບັນຊີປະຈຳວັນ">
+						<rich:panelMenuItem label="ລາຍງານບັນຊີປະຈຳວັນ (ທົ່ວໄປ)"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ລາຍງານບັນຊີປະຈຳວັນ (ມູນຄ່າເດີມ)"></rich:panelMenuItem>
+					</rich:panelMenuGroup>
+					<rich:panelMenuGroup expanded="false" label="ລາຍງານບັນຊີແຍກປະເພດ">
+						<rich:panelMenuItem label="ລາຍງານບັນຊີແຍກປະເພດ (ທົ່ວໄປ)"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ລາຍງານບັນຊີແຍກປະເພດ(ມູນຄ່າເດີມ)"></rich:panelMenuItem>
+					</rich:panelMenuGroup>
+					<rich:panelMenuGroup expanded="false" label="ໃບດຸ່ນດ່ຽງບັນຊີ">
+						<rich:panelMenuItem label="ໃບດຸ່ນດ່ຽງສຳຮອງ"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບດຸ່ນດ່ຽງທົ່ວໄປ"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບດຸ່ນດ່ຽງລາຍຮັບ-ລາຍຈ່າຍ"></rich:panelMenuItem>
+					</rich:panelMenuGroup>
+					<rich:panelMenuGroup expanded="false" label="ໃບດຸ່ນດ່ຽງປະຈຳປີ">
+						<rich:panelMenuItem label="ໃບດຸ່ນດ່ຽງທົ່ວໄປ"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບດຸ່ນດ່ຽງລາຍຮັບ-ລາຍຈ່າຍ"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບດຸ່ນດ່ຽງພາຍຫຼັງການປັບປຸງ"></rich:panelMenuItem>
+					</rich:panelMenuGroup>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="ເອກະສານລາຍງານການເງີນ">
+					<rich:panelMenuGroup label="ໃບສະຫຼຸບຊັບສົມບັດ">
+						<rich:panelMenuItem label="ໃບສະຫຼຸບຊັບສົມບັດ ຊັບສີນ"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບສະຫຼຸບຊັບສົມບັດ ໜີ້ສີນ"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບສະຫຼຸບຊັບສົມບັດ"></rich:panelMenuItem>
+					</rich:panelMenuGroup>
+					<rich:panelMenuGroup label="ໃບລາຍງານຜົນໄດ້ຮັບ">
+						<rich:panelMenuItem label="ໃບລາຍງານຜົນໄດ້ຮັບ (ແບບ 1)"></rich:panelMenuItem>
+						<rich:panelMenuItem label="ໃບລາຍງານຜົນໄດ້ຮັບ (ແບບ 2)"></rich:panelMenuItem>
+					</rich:panelMenuGroup>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="ກຳນົດຄ່າລະບົບ" expanded="false">
+					<rich:panelMenuItem label="#{messages['accountBook_menu_name']}"
+						name="accountBook"
+						action="/view/accountBook/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['accountType_menu_name']}"
+						name="accountType"
+						action="/view/accountType/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['accountYear_menu_name']}"
+						name="accountYear"
+						action="/view/accountYear/search?faces-redirect=true" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="ຄວາມປອດໄພ">
+					<rich:panelMenuItem label="#{messages['userProfile_menu_name']}"
+						name="userProfile"
+						action="/view/userProfile/search?faces-redirect=true" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Admin" expanded="false">
+					<rich:panelMenuItem label="#{messages['branch_menu_name']}"
+						name="branch" action="/view/branch/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['company_menu_name']}"
+						name="company" action="/view/company/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['department_menu_name']}"
+						name="department" action="/view/department/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['program_menu_name']}"
+						name="program" action="/view/program/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['period_menu_name']}"
+						name="Period" action="/view/period/search?faces-redirect=true" />
+					<rich:panelMenuItem label="#{messages['role_menu_name']}"
+						name="role" action="/view/role/search?faces-redirect=true" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Skin">
+					<rich:panelMenuItem label="Default" name="DEFAULT"
+						action="#{sessionBean.changeSkin('DEFAULT')}" />
+					<rich:panelMenuItem label="Emerald Town" name="emeraldTown"
+						action="#{sessionBean.changeSkin('emeraldTown')}" />
+					<rich:panelMenuItem label="Blue Sky" name="blueSky"
+						action="#{sessionBean.changeSkin('blueSky')}" />
+					<rich:panelMenuItem label="Wine" name="wine"
+						action="#{sessionBean.changeSkin('wine')}" />
+					<rich:panelMenuItem label="Japan Cherry" name="japanCherry"
+						action="#{sessionBean.changeSkin('japanCherry')}" />
+					<rich:panelMenuItem label="Ruby" name="ruby"
+						action="#{sessionBean.changeSkin('ruby')}" />
+					<rich:panelMenuItem label="Classic" name="classic"
+						action="#{sessionBean.changeSkin('classic')}" />
+					<rich:panelMenuItem label="Deep Marine" name="deepMarine"
+						action="#{sessionBean.changeSkin('deepMarine')}" />
+				</rich:panelMenuGroup>
+			</rich:panelMenu>
+		</h:panelGrid>
+	</h:form>
+</ui:composition>

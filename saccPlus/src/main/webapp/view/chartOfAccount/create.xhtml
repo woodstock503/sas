@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{chartOfAccountBean.id}"/>
+		<f:event type="preRenderView" listener="#{chartOfAccountBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Chart Of Account"/>
+
+	<ui:define name="header">
+		Chart Of Account
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty chartOfAccountBean.id}">
+				Edit existing Chart Of Account
+			</c:when>
+			<c:otherwise>
+				Create a new Chart Of Account
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountChartOfAccountCode" value="Chart Of Account Code:"/>
+				<h:panelGroup>
+					<h:inputText id="chartOfAccountBeanChartOfAccountChartOfAccountCode" value="#{chartOfAccountBean.chartOfAccount.chartOfAccountCode}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountChartOfAccountCode" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountChartOfAccountName" value="Chart Of Account Name:"/>
+				<h:panelGroup>
+					<h:inputText id="chartOfAccountBeanChartOfAccountChartOfAccountName" value="#{chartOfAccountBean.chartOfAccount.chartOfAccountName}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountChartOfAccountName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountChartOfAccountNameEn" value="Chart Of Account Name En:"/>
+				<h:panelGroup>
+					<h:inputText id="chartOfAccountBeanChartOfAccountChartOfAccountNameEn" value="#{chartOfAccountBean.chartOfAccount.chartOfAccountNameEn}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountChartOfAccountNameEn" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountChartOfAccountCodeMain" value="Chart Of Account Code Main:"/>
+				<h:panelGroup>
+					<h:inputText id="chartOfAccountBeanChartOfAccountChartOfAccountCodeMain" value="#{chartOfAccountBean.chartOfAccount.chartOfAccountCodeMain}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountChartOfAccountCodeMain" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountCreateBy" value="Create By:"/>
+				<h:panelGroup>
+					<h:inputText id="chartOfAccountBeanChartOfAccountCreateBy" value="#{chartOfAccountBean.chartOfAccount.createBy}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountCreateBy" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountCreateDateTime" value="Create Date Time:"/>
+				<h:panelGroup>
+					<rich:calendar id="chartOfAccountBeanChartOfAccountCreateDateTime" value="#{chartOfAccountBean.chartOfAccount.createDateTime}">
+						<f:convertDateTime type="both"/>
+					</rich:calendar>
+					<h:message for="chartOfAccountBeanChartOfAccountCreateDateTime" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountUpdateBy" value="Update By:"/>
+				<h:panelGroup>
+					<h:inputText id="chartOfAccountBeanChartOfAccountUpdateBy" value="#{chartOfAccountBean.chartOfAccount.updateBy}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountUpdateBy" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountUpdateDateTime" value="Update Date Time:"/>
+				<h:panelGroup>
+					<rich:calendar id="chartOfAccountBeanChartOfAccountUpdateDateTime" value="#{chartOfAccountBean.chartOfAccount.updateDateTime}">
+						<f:convertDateTime type="both"/>
+					</rich:calendar>
+					<h:message for="chartOfAccountBeanChartOfAccountUpdateDateTime" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountCurrency" value="Currency:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{currencyBean.converter}" id="chartOfAccountBeanChartOfAccountCurrency" value="#{chartOfAccountBean.chartOfAccount.currency}">
+						<f:selectItem/>
+						<f:selectItems value="#{currencyBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="chartOfAccountBeanChartOfAccountCurrency" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountAccountType" value="Account Type:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountTypeBean.converter}" id="chartOfAccountBeanChartOfAccountAccountType" value="#{chartOfAccountBean.chartOfAccount.accountType}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountTypeBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="chartOfAccountBeanChartOfAccountAccountType" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountCompany" value="Company:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{companyBean.converter}" id="chartOfAccountBeanChartOfAccountCompany" value="#{chartOfAccountBean.chartOfAccount.company}">
+						<f:selectItem/>
+						<f:selectItems value="#{companyBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="chartOfAccountBeanChartOfAccountCompany" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="chartOfAccountBeanChartOfAccountChartOfAccountStatus" value="Chart Of Account Status:"/>
+				<h:panelGroup>
+					<h:selectBooleanCheckbox id="chartOfAccountBeanChartOfAccountChartOfAccountStatus" value="#{chartOfAccountBean.chartOfAccount.chartOfAccountStatus}"/>
+					<h:message for="chartOfAccountBeanChartOfAccountChartOfAccountStatus" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{chartOfAccountBean.update}" styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test="#{!empty chartOfAccountBean.id}">
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value="#{chartOfAccountBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{chartOfAccountBean.delete}" styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

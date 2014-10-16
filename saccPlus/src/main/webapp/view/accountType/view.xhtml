@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{accountTypeBean.id}"/>
+		<f:event type="preRenderView" listener="#{accountTypeBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Account Type"/>
+
+	<ui:define name="header">
+		Account Type
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Account Type
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+	<h:form id="view">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="accountTypeBeanAccountTypeAccountTypeName" value="Account Type Name:"/>
+			<h:outputText id="accountTypeBeanAccountTypeAccountTypeName" value="#{accountTypeBean.accountType.accountTypeName}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountTypeBeanAccountTypeAccountTypeNameEn" value="Account Type Name En:"/>
+			<h:outputText id="accountTypeBeanAccountTypeAccountTypeNameEn" value="#{accountTypeBean.accountType.accountTypeNameEn}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountTypeBeanAccountTypeCreateBy" value="Create By:"/>
+			<h:outputText id="accountTypeBeanAccountTypeCreateBy" value="#{accountTypeBean.accountType.createBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountTypeBeanAccountTypeCreateDateTime" value="Create Date Time:"/>
+			<h:outputText id="accountTypeBeanAccountTypeCreateDateTime" value="#{accountTypeBean.accountType.createDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="accountTypeBeanAccountTypeUpdateBy" value="Update By:"/>
+			<h:outputText id="accountTypeBeanAccountTypeUpdateBy" value="#{accountTypeBean.accountType.updateBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountTypeBeanAccountTypeUpdateDateTime" value="Update Date Time:"/>
+			<h:outputText id="accountTypeBeanAccountTypeUpdateDateTime" value="#{accountTypeBean.accountType.updateDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="accountTypeBeanAccountTypeDescription" value="Description:"/>
+			<h:outputText id="accountTypeBeanAccountTypeDescription" value="#{accountTypeBean.accountType.description}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:commandButton value="View All" action="search?faces-redirect=true" styleClass="btn btn-primary"/>&nbsp; 
+			<h:commandButton value="Edit" action="create?faces-redirect=true" includeViewParams="true" styleClass="btn btn-primary"/>&nbsp;
+		</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

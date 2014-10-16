@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{currencyBean.id}"/>
+		<f:event type="preRenderView" listener="#{currencyBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Currency"/>
+
+	<ui:define name="header">
+		Currency
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty currencyBean.id}">
+				Edit existing Currency
+			</c:when>
+			<c:otherwise>
+				Create a new Currency
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="currencyBeanCurrencyCountry" value="Country:"/>
+				<h:panelGroup>
+					<h:inputText id="currencyBeanCurrencyCountry" value="#{currencyBean.currency.country}"/>
+					<h:message for="currencyBeanCurrencyCountry" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="currencyBeanCurrencyCountryEn" value="Country En:"/>
+				<h:panelGroup>
+					<h:inputText id="currencyBeanCurrencyCountryEn" value="#{currencyBean.currency.countryEn}"/>
+					<h:message for="currencyBeanCurrencyCountryEn" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="currencyBeanCurrencyAbbreviation" value="Abbreviation:"/>
+				<h:panelGroup>
+					<h:inputText id="currencyBeanCurrencyAbbreviation" value="#{currencyBean.currency.abbreviation}"/>
+					<h:message for="currencyBeanCurrencyAbbreviation" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandButton value="Save" action="#{currencyBean.update}" styleClass="btn btn-primary"/> &nbsp;
+				<c:choose>
+					<c:when test="#{!empty currencyBean.id}">
+						<h:commandButton value="Cancel" action="view?faces-redirect=true" styleClass="btn btn-primary">
+							<f:param name="id" value="#{currencyBean.id}"/>
+						</h:commandButton> &nbsp;
+						<h:commandButton value="Delete" action="#{currencyBean.delete}" styleClass="btn btn-primary"/> &nbsp;
+					</c:when>
+					<c:otherwise>
+						<h:commandButton value="Cancel" action="search?faces-redirect=true" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{chartOfAccountBean.page}"/>
+		<f:event type="preRenderView" listener="#{chartOfAccountBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Chart Of Account entities"/>
+
+	<ui:define name="header">
+		Chart Of Account
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Chart Of Account entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="chartOfAccountBeanExampleChartOfAccountCode" value="Chart Of Account Code:"/>
+						<h:panelGroup>
+							<h:inputText id="chartOfAccountBeanExampleChartOfAccountCode" value="#{chartOfAccountBean.example.chartOfAccountCode}"/>
+							<h:message for="chartOfAccountBeanExampleChartOfAccountCode" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="chartOfAccountBeanExampleChartOfAccountName" value="Chart Of Account Name:"/>
+						<h:panelGroup>
+							<h:inputText id="chartOfAccountBeanExampleChartOfAccountName" value="#{chartOfAccountBean.example.chartOfAccountName}"/>
+							<h:message for="chartOfAccountBeanExampleChartOfAccountName" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="chartOfAccountBeanExampleChartOfAccountNameEn" value="Chart Of Account Name En:"/>
+						<h:panelGroup>
+							<h:inputText id="chartOfAccountBeanExampleChartOfAccountNameEn" value="#{chartOfAccountBean.example.chartOfAccountNameEn}"/>
+							<h:message for="chartOfAccountBeanExampleChartOfAccountNameEn" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="chartOfAccountBeanExampleChartOfAccountCodeMain" value="Chart Of Account Code Main:"/>
+						<h:panelGroup>
+							<h:inputText id="chartOfAccountBeanExampleChartOfAccountCodeMain" value="#{chartOfAccountBean.example.chartOfAccountCodeMain}"/>
+							<h:message for="chartOfAccountBeanExampleChartOfAccountCodeMain" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="chartOfAccountBeanExampleCreateBy" value="Create By:"/>
+						<h:panelGroup>
+							<h:inputText id="chartOfAccountBeanExampleCreateBy" value="#{chartOfAccountBean.example.createBy}"/>
+							<h:message for="chartOfAccountBeanExampleCreateBy" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action="#{chartOfAccountBean.search}" styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action="#{chartOfAccountBean.create}" styleClass="btn btn-primary"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<rich:dataTable id="chartOfAccountBeanPageItems" styleClass="data-table" value="#{chartOfAccountBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Chart Of Account Code"/>
+					</f:facet>
+					<h:link outcome="/view/chartOfAccount/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemChartOfAccountCode" value="#{_item.chartOfAccountCode}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Chart Of Account Name"/>
+					</f:facet>
+					<h:link outcome="/view/chartOfAccount/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemChartOfAccountName" value="#{_item.chartOfAccountName}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Chart Of Account Name En"/>
+					</f:facet>
+					<h:link outcome="/view/chartOfAccount/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemChartOfAccountNameEn" value="#{_item.chartOfAccountNameEn}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Chart Of Account Code Main"/>
+					</f:facet>
+					<h:link outcome="/view/chartOfAccount/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemChartOfAccountCodeMain" value="#{_item.chartOfAccountCodeMain}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create By"/>
+					</f:facet>
+					<h:link outcome="/view/chartOfAccount/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateBy" value="#{_item.createBy}"/>
+					</h:link>
+				</h:column>
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{chartOfAccountBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

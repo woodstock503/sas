@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/scaffold/noneTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Welcome to S-Acc plus" />
+
+	<ui:define name="header">
+
+	</ui:define>
+
+	<ui:define name="main">
+		<img src="#{resource['sas_logo.png']}" alt="S-Acc Plus" border="0" />
+		<br />
+		<h:form styleClass="loginform">
+			<h:panelGrid columns="1" rendered="#{!auth.loggedIn}">
+				<h:outputLabel for="username">ລະຫັດຜູ້ໃຊ້ - Username</h:outputLabel>
+				<p:inputText id="username" label="UserName" required="true"
+					value="#{auth.username}">
+					<f:validateLength minimum="5" maximum="15" />
+				</p:inputText>
+				<h:outputLabel for="password">ພັສເວີດ - Password</h:outputLabel>
+				<p:password id="password" label="Password" value="#{auth.password}"
+					required="true">
+					<f:validateLength minimum="4" maximum="10" />
+				</p:password>
+			</h:panelGrid>
+			<h:commandButton styleClass="login-button" value="Log In"
+				action="#{auth.login()}" rendered="#{!auth.loggedIn}" />
+			<h:commandButton styleClass="login-button" action="#{auth.logout()}"
+				value="Log Out" rendered="#{auth.loggedIn}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

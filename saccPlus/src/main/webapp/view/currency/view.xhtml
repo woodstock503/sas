@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{currencyBean.id}"/>
+		<f:event type="preRenderView" listener="#{currencyBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Currency"/>
+
+	<ui:define name="header">
+		Currency
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Currency
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+	<h:form id="view">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="currencyBeanCurrencyCountry" value="Country:"/>
+			<h:outputText id="currencyBeanCurrencyCountry" value="#{currencyBean.currency.country}"/>
+			<h:outputText/>
+			<h:outputLabel for="currencyBeanCurrencyCountryEn" value="Country En:"/>
+			<h:outputText id="currencyBeanCurrencyCountryEn" value="#{currencyBean.currency.countryEn}"/>
+			<h:outputText/>
+			<h:outputLabel for="currencyBeanCurrencyAbbreviation" value="Abbreviation:"/>
+			<h:outputText id="currencyBeanCurrencyAbbreviation" value="#{currencyBean.currency.abbreviation}"/>
+			<h:outputText/>
+			<h:outputLabel for="currencyBeanCurrencyCreateBy" value="Create By:"/>
+			<h:outputText id="currencyBeanCurrencyCreateBy" value="#{currencyBean.currency.createBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="currencyBeanCurrencyCreateDateTime" value="Create Date Time:"/>
+			<h:outputText id="currencyBeanCurrencyCreateDateTime" value="#{currencyBean.currency.createDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="currencyBeanCurrencyUpdateBy" value="Update By:"/>
+			<h:outputText id="currencyBeanCurrencyUpdateBy" value="#{currencyBean.currency.updateBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="currencyBeanCurrencyUpdateDateTime" value="Update Date Time:"/>
+			<h:outputText id="currencyBeanCurrencyUpdateDateTime" value="#{currencyBean.currency.updateDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel value="Currency Status:"/>
+			<h:outputText styleClass="#{currencyBean.currency.currencyStatus ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:commandButton value="View All" action="search?faces-redirect=true" styleClass="btn btn-primary"/>  &nbsp;
+			<h:commandButton value="Edit" action="create?faces-redirect=true" includeViewParams="true" styleClass="btn btn-primary"/> &nbsp;
+		</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

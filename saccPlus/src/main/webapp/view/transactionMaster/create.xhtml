@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{transactionMasterBean.id}"/>
+		<f:event type="preRenderView" listener="#{transactionMasterBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Transaction Master"/>
+
+	<ui:define name="header">
+		Transaction Master
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty transactionMasterBean.id}">
+				Edit existing Transaction Master
+			</c:when>
+			<c:otherwise>
+				Create a new Transaction Master
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="transactionMasterBeanTransactionMasterBillDate" value="Bill Date:"/>
+				<h:panelGroup>
+					<rich:calendar id="transactionMasterBeanTransactionMasterBillDate" value="#{transactionMasterBean.transactionMaster.billDate}">
+						<f:convertDateTime type="both"/>
+					</rich:calendar>
+					<h:message for="transactionMasterBeanTransactionMasterBillDate" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterCertifyNo" value="Certify No:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterCertifyNo" value="#{transactionMasterBean.transactionMaster.certifyNo}"/>
+					<h:message for="transactionMasterBeanTransactionMasterCertifyNo" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterReferenceNo" value="Reference No:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterReferenceNo" value="#{transactionMasterBean.transactionMaster.referenceNo}"/>
+					<h:message for="transactionMasterBeanTransactionMasterReferenceNo" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterCreateUser" value="Create User:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{userProfileBean.converter}" id="transactionMasterBeanTransactionMasterCreateUser" value="#{transactionMasterBean.transactionMaster.createUser}">
+						<f:selectItem/>
+						<f:selectItems value="#{userProfileBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionMasterBeanTransactionMasterCreateUser" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterCompany" value="Company:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{companyBean.converter}" id="transactionMasterBeanTransactionMasterCompany" value="#{transactionMasterBean.transactionMaster.company}">
+						<f:selectItem/>
+						<f:selectItems value="#{companyBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionMasterBeanTransactionMasterCompany" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterBranch" value="Branch:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{branchBean.converter}" id="transactionMasterBeanTransactionMasterBranch" value="#{transactionMasterBean.transactionMaster.branch}">
+						<f:selectItem/>
+						<f:selectItems value="#{branchBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionMasterBeanTransactionMasterBranch" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterAccountYear" value="Account Year:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountYearBean.converter}" id="transactionMasterBeanTransactionMasterAccountYear" value="#{transactionMasterBean.transactionMaster.accountYear}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountYearBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionMasterBeanTransactionMasterAccountYear" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterAccountBook" value="Account Book:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountBookBean.converter}" id="transactionMasterBeanTransactionMasterAccountBook" value="#{transactionMasterBean.transactionMaster.accountBook}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountBookBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionMasterBeanTransactionMasterAccountBook" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterDescription" value="Description:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterDescription" value="#{transactionMasterBean.transactionMaster.description}"/>
+					<h:message for="transactionMasterBeanTransactionMasterDescription" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>	
+				<h:outputLabel for="transactionMasterBeanTransactionMasterTransactionDetails" value="Transaction Details:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{transactionMasterBean.transactionMaster.transactionDetails}"/>
+					<h:dataTable id="transactionMasterBeanTransactionMasterTransactionDetails" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Account Type"/>
+							</f:facet>
+							<h:link outcome="/view/transactionDetail/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemAccountType" value="#{_item.accountType}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:selectOneMenu converter="#{accountTypeBean.converter}" id="transactionDetailBeanAddAccountType" value="#{transactionDetailBean.add.accountType}">
+									<f:selectItem/>
+									<f:selectItems value="#{accountTypeBean.all}"/>
+								</h:selectOneMenu>
+								<h:message for="transactionDetailBeanAddAccountType" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Department"/>
+							</f:facet>
+							<h:link outcome="/view/transactionDetail/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemDepartment" value="#{_item.department}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:selectOneMenu converter="#{departmentBean.converter}" id="transactionDetailBeanAddDepartment" value="#{transactionDetailBean.add.department}">
+									<f:selectItem/>
+									<f:selectItems value="#{departmentBean.all}"/>
+								</h:selectOneMenu>
+								<h:message for="transactionDetailBeanAddDepartment" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Amount Debit"/>
+							</f:facet>
+							<h:link outcome="/view/transactionDetail/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemAmountDebit" value="#{_item.amountDebit}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="transactionDetailBeanAddAmountDebit" value="#{transactionDetailBean.add.amountDebit}"/>
+								<h:message for="transactionDetailBeanAddAmountDebit" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Amount Credit"/>
+							</f:facet>
+							<h:link outcome="/view/transactionDetail/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemAmountCredit" value="#{_item.amountCredit}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="transactionDetailBeanAddAmountCredit" value="#{transactionDetailBean.add.amountCredit}"/>
+								<h:message for="transactionDetailBeanAddAmountCredit" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column footerClass="remove-column" headerClass="remove-column">
+							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<f:facet name="footer">
+								<h:commandLink action="#{_collection.add(transactionDetailBean.added)}" id="transactionMasterBeanTransactionMasterTransactionDetailsAdd" styleClass="add-button">
+									<f:setPropertyActionListener target="#{transactionDetailBean.add.transactionMaster}" value="#{transactionMasterBean.transactionMaster}"/>
+								</h:commandLink>
+							</f:facet>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterTotalAmountDebit" value="Total Amount Debit:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterTotalAmountDebit" value="#{transactionMasterBean.transactionMaster.totalAmountDebit}"/>
+					<h:message for="transactionMasterBeanTransactionMasterTotalAmountDebit" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterTotalAmountDebitLo" value="Total Amount Debit Lo:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterTotalAmountDebitLo" value="#{transactionMasterBean.transactionMaster.totalAmountDebitLo}"/>
+					<h:message for="transactionMasterBeanTransactionMasterTotalAmountDebitLo" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterTotalAmountCredit" value="Total Amount Credit:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterTotalAmountCredit" value="#{transactionMasterBean.transactionMaster.totalAmountCredit}"/>
+					<h:message for="transactionMasterBeanTransactionMasterTotalAmountCredit" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionMasterBeanTransactionMasterTotalAmountCreditLo" value="Total Amount Credit Lo:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionMasterBeanTransactionMasterTotalAmountCreditLo" value="#{transactionMasterBean.transactionMaster.totalAmountCreditLo}"/>
+					<h:message for="transactionMasterBeanTransactionMasterTotalAmountCreditLo" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandButton value="Save" action="#{transactionMasterBean.update}" styleClass="btn btn-primary"/>&nbsp;
+				<c:choose>
+					<c:when test="#{!empty transactionMasterBean.id}">
+						<h:commandButton value="Cancel" action="view?faces-redirect=true" styleClass="btn btn-primary">
+							<f:param name="id" value="#{transactionMasterBean.id}"/>
+						</h:commandButton>&nbsp;
+						<h:commandButton value="Delete" action="#{transactionMasterBean.delete}" styleClass="btn btn-primary"/>&nbsp;
+					</c:when>
+					<c:otherwise>
+						<h:commandButton value="Cancel" action="search?faces-redirect=true" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

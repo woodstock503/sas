@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{userProfileBean.id}" />
+		<f:event type="preRenderView" listener="#{userProfileBean.retrieve}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create User Profile" />
+
+	<ui:define name="header">
+		User Profile
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty userProfileBean.id}">
+				Edit existing User Profile
+			</c:when>
+			<c:otherwise>
+				Create a new User Profile
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error" />
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="userProfileBeanUserProfileUserLoginName"
+					value="User Login Name:" />
+				<h:panelGroup>
+					<h:inputText id="userProfileBeanUserProfileUserLoginName"
+						value="#{userProfileBean.userProfile.userLoginName}"
+						required="true" requiredMessage="UserLoginName">
+					</h:inputText>
+					<h:message for="userProfileBeanUserProfileUserLoginName"
+						styleClass="error" />
+				</h:panelGroup>
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUserFullName"
+					value="User Full Name:" />
+				<h:panelGroup>
+					<h:inputText id="userProfileBeanUserProfileUserFullName"
+						value="#{userProfileBean.userProfile.userFullName}" />
+					<h:message for="userProfileBeanUserProfileUserFullName"
+						styleClass="error" />
+				</h:panelGroup>
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUserFullNameEn"
+					value="User Full Name (En):" />
+				<h:panelGroup>
+					<h:inputText id="userProfileBeanUserProfileUserFullNameEn"
+						value="#{userProfileBean.userProfile.userFullNameEn}" />
+					<h:message for="userProfileBeanUserProfileUserFullNameEn"
+						styleClass="error" />
+				</h:panelGroup>
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUserPassword"
+					value="User Password:" rendered="#{userProfileBean.id eq null}" />
+				<h:panelGroup rendered="#{userProfileBean.id eq null}">
+					<h:inputText id="userProfileBeanUserProfileUserPassword"
+						value="#{userProfileBean.userProfile.userPassword}" />
+					<h:message for="userProfileBeanUserProfileUserPassword"
+						styleClass="error" />
+				</h:panelGroup>
+				<h:outputText rendered="#{userProfileBean.id eq null}" />
+				<h:outputLabel for="userProfileBeanUserProfileInActiveReason"
+					value="In Active Reason:" />
+				<h:panelGroup>
+					<h:inputTextarea id="userProfileBeanUserProfileInActiveReason"
+						value="#{userProfileBean.userProfile.inActiveReason}" />
+					<h:message for="userProfileBeanUserProfileInActiveReason"
+						styleClass="error" />
+				</h:panelGroup>
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileEmail" value="Email:" />
+				<h:panelGroup>
+					<h:inputText id="userProfileBeanUserProfileEmail"
+						value="#{userProfileBean.userProfile.email}" />
+					<h:message for="userProfileBeanUserProfileEmail" styleClass="error" />
+				</h:panelGroup>
+				<h:outputText />
+				<h:outputLabel value="Roles:" />
+				<h:panelGroup>
+					<rich:pickList value="#{userProfileBean.userProfile.roles}"
+						converter="#{roleBean.converter}" sourceCaption="Available role"
+						targetCaption="Selected role" listWidth="100px" listHeight="100px"
+						orderable="false">
+						<f:selectItems value="#{roleBean.all}" var="role"
+							itemValue="#{role}"
+							itemLabel="#{(sessionBean.local)? role.roleName : role.roleNameEn}" />
+					</rich:pickList>
+				</h:panelGroup>
+				<h:outputText />
+
+				<h:outputLabel value="Company:" rendered="#{sessionBean.showCompanyList()}"/>
+				<h:panelGroup rendered="#{sessionBean.showCompanyList()}">
+					<rich:pickList value="#{userProfileBean.userProfile.companys}"
+						converter="#{companyBean.converter}"
+						sourceCaption="Available company" targetCaption="Selected company"
+						listWidth="100px" listHeight="100px" orderable="false">
+						<f:selectItems value="#{companyBean.all}" var="company"
+							itemValue="#{company}"
+							itemLabel="#{(sessionBean.local)? company.companyName : company.companyNameEn}" />
+					</rich:pickList>
+				</h:panelGroup>
+				<h:outputText rendered="#{sessionBean.showCompanyList()}"/>
+
+				<h:outputLabel value="Branch:" rendered="#{sessionBean.showBranch()}"/>
+				<h:panelGroup rendered="#{sessionBean.showBranch()}">
+					<rich:pickList value="#{userProfileBean.userProfile.branchs}"
+						converter="#{branchBean.converter}"
+						sourceCaption="Available branch" targetCaption="Selected branch"
+						listWidth="100px" listHeight="100px" orderable="false">
+						<f:selectItems value="#{branchBean.all}" var="branch"
+							itemValue="#{branch}"
+							itemLabel="#{(sessionBean.local)? branch.branchName : branch.branchNameEn}" />
+					</rich:pickList>
+				</h:panelGroup>
+				<h:outputText rendered="#{sessionBean.showBranch()}"/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandButton value="Save" action="#{userProfileBean.update}"
+					styleClass="btn btn-primary" />
+				&nbsp;
+				<c:choose>
+					<c:when test="#{!empty userProfileBean.id}">
+						<h:commandButton value="Cancel" action="view?faces-redirect=true"
+							styleClass="btn btn-primary">
+							<f:param name="id" value="#{userProfileBean.id}" />
+						</h:commandButton>&nbsp;
+						<h:commandButton value="Delete" action="#{userProfileBean.delete}"
+							styleClass="btn btn-primary" />
+					</c:when>
+					<c:otherwise>
+						<h:commandButton value="Cancel"
+							action="search?faces-redirect=true" immediate="true"
+							styleClass="btn btn-primary" />
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

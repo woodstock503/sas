@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{programBean.page}"/>
+		<f:event type="preRenderView" listener="#{programBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Program entities"/>
+
+	<ui:define name="header">
+		Program
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Program entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="programBeanExampleProgramName" value="Program Name:"/>
+						<h:panelGroup>
+							<h:inputText id="programBeanExampleProgramName" value="#{programBean.example.programName}"/>
+							<h:message for="programBeanExampleProgramName" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="programBeanExampleProgramNameEn" value="Program Name En:"/>
+						<h:panelGroup>
+							<h:inputText id="programBeanExampleProgramNameEn" value="#{programBean.example.programNameEn}"/>
+							<h:message for="programBeanExampleProgramNameEn" styleClass="error"/>
+						</h:panelGroup>					
+						<h:commandButton value="Search" action="#{programBean.search}" styleClass="btn btn-primary"/>
+					</h:panelGrid>
+				</h:panelGroup>
+			</f:validateBean>
+			<h:commandButton value="Create New" action="#{programBean.create}" styleClass="btn btn-primary"/>
+			<br/>
+			<br/>
+			<rich:dataTable id="programBeanPageItems" styleClass="data-table" value="#{programBean.pageItems}" var="_item" style="width:100%">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Program Name"/>
+					</f:facet>
+					<h:link outcome="/view/program/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemProgramName" value="#{_item.programName}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Program Name (En)"/>
+					</f:facet>
+					<h:link outcome="/view/program/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemProgramNameEn" value="#{_item.programNameEn}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Url"/>
+					</f:facet>
+					<h:link outcome="/view/program/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemUrl" value="#{_item.url}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description"/>
+					</f:facet>
+					<h:link outcome="/view/program/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemDescription" value="#{_item.description}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create By"/>
+					</f:facet>
+					<h:link outcome="/view/program/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateBy" value="#{_item.createBy}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create Date"/>
+					</f:facet>
+					<h:link outcome="/view/program/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateDateTime" value="#{_item.createDateTime}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{programBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

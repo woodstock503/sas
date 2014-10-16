@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{transactionDetailBean.page}"/>
+		<f:event type="preRenderView" listener="#{transactionDetailBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Transaction Detail entities"/>
+
+	<ui:define name="header">
+		Transaction Detail
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Transaction Detail entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="transactionDetailBeanExampleChartOfAccount" value="Chart Of Account:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{chartOfAccountBean.converter}" id="transactionDetailBeanExampleChartOfAccount" value="#{transactionDetailBean.example.chartOfAccount}">
+								<f:selectItem/>
+								<f:selectItems value="#{chartOfAccountBean.all}"/>
+							</h:selectOneMenu>
+							<h:message for="transactionDetailBeanExampleChartOfAccount" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="transactionDetailBeanExampleAccountType" value="Account Type:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{accountTypeBean.converter}" id="transactionDetailBeanExampleAccountType" value="#{transactionDetailBean.example.accountType}">
+								<f:selectItem/>
+								<f:selectItems value="#{accountTypeBean.all}" var="item" itemLabel="#{(sessionBean.local) ? item.accountTypeName : item.accountTypeNameEn }"/>
+							</h:selectOneMenu>
+							<h:message for="transactionDetailBeanExampleAccountType" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="transactionDetailBeanExampleDepartment" value="Department:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{departmentBean.converter}" id="transactionDetailBeanExampleDepartment" value="#{transactionDetailBean.example.department}">
+								<f:selectItem/>
+								<f:selectItems value="#{departmentBean.all}" var="item" itemLabel="#{(sessionBean.local) ? item.departmentName : item.departmentNameEn}"/>
+							</h:selectOneMenu>
+							<h:message for="transactionDetailBeanExampleDepartment" styleClass="error"/>
+						</h:panelGroup>
+						<h:commandButton value="Search" action="#{transactionDetailBean.search}" styleClass="btn btn-primary"/>
+					</h:panelGrid>					
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<rich:dataTable id="transactionDetailBeanPageItems" styleClass="data-table" value="#{transactionDetailBean.pageItems}" var="_item" style="width:100%">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Certify No."/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemCertifyNo" value="#{_item.transactionMaster.certifyNo}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Reference No."/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemReferenceNo" value="#{_item.transactionMaster.referenceNo}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Chart Of Account"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemChartOfAccount" value="#{_item.chartOfAccount}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Account Type"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemAccountType"  value="#{(sessionBean.local)? _item.accountType.accountTypeName : _item.accountType.accountTypeNameEn }"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Department"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemDepartment"  value="#{(sessionBean.local) ? _item.department.departmentName : _item.department.departmentNameEn}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemDescription" value="#{_item.description}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description(En)"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemDescriptionEn" value="#{_item.descriptionEn}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Debit"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemDebit" value="#{_item.amountDebit}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Credit"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemCredit" value="#{_item.amountCredit}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Currency"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemCurrency" value="#{_item.rate.currency.abbreviation}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rate"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemRate" value="#{_item.transactionRate}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Local Debit"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemDebitLo" value="#{_item.amountDebitLo}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Local Credit"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.transactionMaster.id}"/>
+						<h:outputText id="itemCreditLo" value="#{_item.amountCreditLo}"/>
+					</h:link>
+				</h:column>
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{transactionDetailBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

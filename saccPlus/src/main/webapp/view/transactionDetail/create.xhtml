@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{transactionDetailBean.id}"/>
+		<f:event type="preRenderView" listener="#{transactionDetailBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Transaction Detail"/>
+
+	<ui:define name="header">
+		Transaction Detail
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty transactionDetailBean.id}">
+				Edit existing Transaction Detail
+			</c:when>
+			<c:otherwise>
+				Create a new Transaction Detail
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="transactionDetailBeanTransactionDetailChartOfAccount" value="Chart Of Account:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{chartOfAccountBean.converter}" id="transactionDetailBeanTransactionDetailChartOfAccount" value="#{transactionDetailBean.transactionDetail.chartOfAccount}">
+						<f:selectItem/>
+						<f:selectItems value="#{chartOfAccountBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailChartOfAccount" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAccountType" value="Account Type:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountTypeBean.converter}" id="transactionDetailBeanTransactionDetailAccountType" value="#{transactionDetailBean.transactionDetail.accountType}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountTypeBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailAccountType" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailDepartment" value="Department:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{departmentBean.converter}" id="transactionDetailBeanTransactionDetailDepartment" value="#{transactionDetailBean.transactionDetail.department}">
+						<f:selectItem/>
+						<f:selectItems value="#{departmentBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailDepartment" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailDescription" value="Description:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailDescription" value="#{transactionDetailBean.transactionDetail.description}"/>
+					<h:message for="transactionDetailBeanTransactionDetailDescription" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailDescriptionEn" value="Description En:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailDescriptionEn" value="#{transactionDetailBean.transactionDetail.descriptionEn}"/>
+					<h:message for="transactionDetailBeanTransactionDetailDescriptionEn" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAmountDebit" value="Amount Debit:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailAmountDebit" value="#{transactionDetailBean.transactionDetail.amountDebit}"/>
+					<h:message for="transactionDetailBeanTransactionDetailAmountDebit" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAmountCredit" value="Amount Credit:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailAmountCredit" value="#{transactionDetailBean.transactionDetail.amountCredit}"/>
+					<h:message for="transactionDetailBeanTransactionDetailAmountCredit" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAmountDebitLo" value="Amount Debit Lo:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailAmountDebitLo" value="#{transactionDetailBean.transactionDetail.amountDebitLo}"/>
+					<h:message for="transactionDetailBeanTransactionDetailAmountDebitLo" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAmountCreditLo" value="Amount Credit Lo:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailAmountCreditLo" value="#{transactionDetailBean.transactionDetail.amountCreditLo}"/>
+					<h:message for="transactionDetailBeanTransactionDetailAmountCreditLo" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailRate" value="Rate:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{rateBean.converter}" id="transactionDetailBeanTransactionDetailRate" value="#{transactionDetailBean.transactionDetail.rate}">
+						<f:selectItem/>
+						<f:selectItems value="#{rateBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailRate" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailTransactionRate" value="Transaction Rate:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailTransactionRate" value="#{transactionDetailBean.transactionDetail.transactionRate}"/>
+					<h:message for="transactionDetailBeanTransactionDetailTransactionRate" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailTransactionMaster" value="Transaction Master:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{transactionMasterBean.converter}" id="transactionDetailBeanTransactionDetailTransactionMaster" value="#{transactionDetailBean.transactionDetail.transactionMaster}">
+						<f:selectItem/>
+						<f:selectItems value="#{transactionMasterBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailTransactionMaster" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailCompany" value="Company:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{companyBean.converter}" id="transactionDetailBeanTransactionDetailCompany" value="#{transactionDetailBean.transactionDetail.company}">
+						<f:selectItem/>
+						<f:selectItems value="#{companyBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailCompany" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailBranch" value="Branch:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{branchBean.converter}" id="transactionDetailBeanTransactionDetailBranch" value="#{transactionDetailBean.transactionDetail.branch}">
+						<f:selectItem/>
+						<f:selectItems value="#{branchBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailBranch" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAccountYear" value="Account Year:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountYearBean.converter}" id="transactionDetailBeanTransactionDetailAccountYear" value="#{transactionDetailBean.transactionDetail.accountYear}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountYearBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailAccountYear" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailAccountBook" value="Account Book:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountBookBean.converter}" id="transactionDetailBeanTransactionDetailAccountBook" value="#{transactionDetailBean.transactionDetail.accountBook}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountBookBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="transactionDetailBeanTransactionDetailAccountBook" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailCreateBy" value="Create By:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailCreateBy" value="#{transactionDetailBean.transactionDetail.createBy}"/>
+					<h:message for="transactionDetailBeanTransactionDetailCreateBy" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailCreateDateTime" value="Create Date Time:"/>
+				<h:panelGroup>
+					<rich:calendar id="transactionDetailBeanTransactionDetailCreateDateTime" value="#{transactionDetailBean.transactionDetail.createDateTime}">
+						<f:convertDateTime type="both"/>
+					</rich:calendar>
+					<h:message for="transactionDetailBeanTransactionDetailCreateDateTime" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailUpdateBy" value="Update By:"/>
+				<h:panelGroup>
+					<h:inputText id="transactionDetailBeanTransactionDetailUpdateBy" value="#{transactionDetailBean.transactionDetail.updateBy}"/>
+					<h:message for="transactionDetailBeanTransactionDetailUpdateBy" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailUpdateDateTime" value="Update Date Time:"/>
+				<h:panelGroup>
+					<rich:calendar id="transactionDetailBeanTransactionDetailUpdateDateTime" value="#{transactionDetailBean.transactionDetail.updateDateTime}">
+						<f:convertDateTime type="both"/>
+					</rich:calendar>
+					<h:message for="transactionDetailBeanTransactionDetailUpdateDateTime" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="transactionDetailBeanTransactionDetailTransactionDetailStatus" value="Transaction Detail Status:"/>
+				<h:panelGroup>
+					<h:selectBooleanCheckbox id="transactionDetailBeanTransactionDetailTransactionDetailStatus" value="#{transactionDetailBean.transactionDetail.transactionDetailStatus}"/>
+					<h:message for="transactionDetailBeanTransactionDetailTransactionDetailStatus" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{transactionDetailBean.update}" styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test="#{!empty transactionDetailBean.id}">
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value="#{transactionDetailBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{transactionDetailBean.delete}" styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

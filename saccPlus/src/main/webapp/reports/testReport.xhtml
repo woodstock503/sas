@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Welcome to S-aac Plus" />
+
+	<ui:define name="header">
+Welcome to S-aac Plus
+	</ui:define>
+
+	<ui:define name="main">
+		<h:form target="report">
+			<h:commandButton value="Search" action="#{testReportBean.PDF()}" />
+		</h:form>
+		<br/>
+		<iframe id="report" name="report" src="report.xhtml" width="80%"
+			height="1200px;" frameBorder="0"> </iframe>
+	</ui:define>
+
+
+
+</ui:composition>

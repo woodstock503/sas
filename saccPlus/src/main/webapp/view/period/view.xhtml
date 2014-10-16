@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{periodBean.id}"/>
+		<f:event type="preRenderView" listener="#{periodBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Period"/>
+
+	<ui:define name="header">
+		Period
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Period
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+	<h:form id="view">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="periodBeanPeriodStartDate" value="Start Date:"/>
+			<h:outputText id="periodBeanPeriodStartDate" value="#{periodBean.period.startDate}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="periodBeanPeriodEndDate" value="End Date:"/>
+			<h:outputText id="periodBeanPeriodEndDate" value="#{periodBean.period.endDate}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="periodBeanPeriodCompany" value="Company:"/>
+			<h:link id="periodBeanPeriodCompany" outcome="/view/company/view"  value="#{(sessionBean.local)? periodBean.period.company.companyName : periodBean.period.company.companyNameEn}" >
+				<f:param name="id" value="#{periodBean.period.company.id}"/>
+			</h:link>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:commandButton value="View All" action="search?faces-redirect=true" styleClass="btn btn-primary"/> &nbsp;
+			<h:commandButton value="Edit" action="search?faces-redirect=true" includeViewParams="true" styleClass="btn btn-primary"/>&nbsp;
+		</div>
+	</h:form>
+	</ui:define>
+
+</ui:composition>

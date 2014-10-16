@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{companyBean.id}" />
+		<f:event type="preRenderView" listener="#{companyBean.retrieve}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Company" />
+
+	<ui:define name="header">
+		Company
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Company
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="view">
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="companyBeanCompanyCompanyName"
+					value="Company Name:" />
+				<h:outputText id="companyBeanCompanyCompanyName"
+					value="#{companyBean.company.companyName}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyCompanyNameEn"
+					value="Company Name En:" />
+				<h:outputText id="companyBeanCompanyCompanyNameEn"
+					value="#{companyBean.company.companyNameEn}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyLogo" value="Logo:" />
+				<a4j:mediaOutput element="img" mimeType="image/jpeg"
+					id="companyBeanCompanyLogo" createContent="#{companyBean.paint}"
+					style="width:100px; height:100px;" cacheable="false">
+					<f:param value="#{companyBean.timeStamp}" name="time" />
+				</a4j:mediaOutput>
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyCreateBy" value="Create By:" />
+				<h:outputText id="companyBeanCompanyCreateBy"
+					value="#{companyBean.company.createBy}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyCreateDateTime"
+					value="Create Date Time:" />
+				<h:outputText id="companyBeanCompanyCreateDateTime"
+					value="#{companyBean.company.createDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyUpdateBy" value="Update By:" />
+				<h:outputText id="companyBeanCompanyUpdateBy"
+					value="#{companyBean.company.updateBy}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyUpdateDateTime"
+					value="Update Date Time:" />
+				<h:outputText id="companyBeanCompanyUpdateDateTime"
+					value="#{companyBean.company.updateDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel value="Company Status:" />
+				<h:outputText
+					styleClass="#{companyBean.company.companyStatus ? 'boolean-true' : 'boolean-false'}"
+					value="" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyCurrency" value="Currency" />
+				<h:link id="companyBeanCompanyCurrency"	outcome="/view/currency/view" value="#{companyBean.company.currency.abbreviation}">
+					<f:param name="id" value="#{companyBean.company.currency.abbreviation}" />
+				</h:link>
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyDigitPattern"
+					value="Digit Pattern:" />
+				<h:outputText id="companyBeanCompanyDigitPattern"
+					value="#{companyBean.company.digitPattern}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyStartDate" value="Start Date:" />
+				<h:outputText id="companyBeanCompanyStartDate"
+					value="#{companyBean.company.startDate}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyPeriod" value="Period:" />
+				<h:outputText id="companyBeanCompanyPeriod"
+					value="#{companyBean.company.period}">
+				</h:outputText>
+				<h:outputText />				
+				<h:outputLabel for="companyBeanCompanyAddress" value="Address:" />
+				<h:outputText id="companyBeanCompanyAddress"
+					value="#{companyBean.company.address}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyTelephone" value="Telephone:" />
+				<h:outputText id="companyBeanCompanyTelephone"
+					value="#{companyBean.company.telephone}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyFax" value="Fax:" />
+				<h:outputText id="companyBeanCompanyFax"
+					value="#{companyBean.company.fax}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyEmail" value="Email:" />
+				<h:outputText id="companyBeanCompanyEmail"
+					value="#{companyBean.company.email}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyVision" value="Vision:" />
+				<h:outputText id="companyBeanCompanyVision"
+					value="#{companyBean.company.vision}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyMission" value="Mission:" />
+				<h:outputText id="companyBeanCompanyMission"
+					value="#{companyBean.company.mission}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyTaxId" value="Tax Id:" />
+				<h:outputText id="companyBeanCompanyTaxId"
+					value="#{companyBean.company.taxId}" />
+				<h:outputText />
+				<h:outputLabel for="companyBeanCompanyEstablishDateTime"
+					value="Establish Date Time:" />
+				<h:outputText id="companyBeanCompanyEstablishDateTime"
+					value="#{companyBean.company.establishDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandButton value="View All"
+					action="search?faces-redirect=true" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:commandButton value="Edit" action="create?faces-redirect=true"
+					includeViewParams="true" styleClass="btn btn-primary" />
+				&nbsp;
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

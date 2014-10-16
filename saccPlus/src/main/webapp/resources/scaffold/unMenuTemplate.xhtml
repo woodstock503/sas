@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
+	<link rel="icon" href="#{resource['favicon.ico']}" />
+	<h:outputStylesheet name="custom-style.css" />
+</h:head>
+
+<h:body style="background-color: #FFFFFF;">
+	<div class="sas-header">
+		<div class="sas-header-content">
+			<h:form>
+				<div class="sas-logo">
+					<h:link id="homeLink" outcome="/view/index.xhtml">
+						<img src="#{resource['sas_logo3.png']}" width="70px;"
+							alt="S-Acc Plus" />
+					</h:link>
+				</div>
+				<div class="sas-lang-swicht">
+					<h:commandButton action="#{languageBean.countryLocaleCodeChanged}"
+						image="#{resource['lao_flag.png']}" style="width:20px;">
+						<f:setPropertyActionListener target="#{languageBean.localeCode}"
+							value="lo_LA" />
+						<f:ajax execute="@form" render="@all" />
+					</h:commandButton>
+					&#160;
+					<h:commandButton action="#{languageBean.countryLocaleCodeChanged}"
+						image="#{resource['english_flag.png']}" style="width:20px;">
+						<f:setPropertyActionListener target="#{languageBean.localeCode}"
+							value="en" />
+						<f:ajax execute="@form" render="@all" />
+					</h:commandButton>
+				</div>
+				<div class="sas-logout">
+					<img src="#{resource['theme/ico_logout.png']}" alt="Logout"
+						style="margin-right: 5px;" />
+					<h:commandLink action="#{auth.logout()}" value="ลงชื่อออก"
+						style="color:#FFFFFF;font: inherit;" rendered="#{auth.loggedIn}">
+					</h:commandLink>
+				</div>
+			</h:form>
+		</div>
+	</div>
+	<div>
+		<div class="login">
+			<ui:insert name="main" />
+			<br />
+			<h:messages globalOnly="false" style="margin:5px 0 10px 20px;"
+				infoClass="info-messages" errorClass="error-messages" />
+		</div>
+		<div class="login-footer">
+			Powered by <a href="http://www.sbalao.com">SBA Lao</a>
+		</div>
+	</div>
+
+	<footer>
+		<div id="footer-wrapper">
+			<!-- 
+			<p>
+				Powered by <a href="http://jboss.org/forge">Forge</a>
+			</p>
+			 -->
+		</div>
+	</footer>
+
+</h:body>
+</html>

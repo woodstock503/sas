@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{accountYearBean.page}"/>
+		<f:event type="preRenderView" listener="#{accountYearBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Account Year entities"/>
+
+	<ui:define name="header">
+		Account Year
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Account Year entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="5">
+					   	<h:outputLabel for="rateBeanExampleDateFrom" value="Year:"/>
+						<h:panelGroup>
+							<rich:calendar id="rateBeanExampleDateFrom"  datePattern="yyyy" locale="en/US" value="#{accountYearBean.example.dateFrom}" />
+							<h:message for="rateBeanExampleDateFrom" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputLabel for="rateBeanExampleDateTo" value="-"/>
+						<h:panelGroup>
+							<rich:calendar id="rateBeanExampleDateTo" datePattern="yyyy"  locale="en/US" value="#{accountYearBean.example.dateTo}"/>
+							<h:message for="rateBeanExampleDateTo" styleClass="error"/>
+						</h:panelGroup>
+						<h:commandButton value="Search" action="#{accountYearBean.search}" styleClass="btn btn-primary"/>
+					</h:panelGrid>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<rich:dataTable id="accountYearBeanPageItems" styleClass="data-table" columnClasses="align-center,align-center,align-right,align-right,align-center,align-left,align-center" value="#{accountYearBean.pageItems}" var="_item" style="width:100%">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Start Date"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemStartDate" value="#{_item.startDate}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="End Date"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemEndDate" value="#{_item.endDate}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Debit Balance"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemDebitBalance" value="#{_item.debitBalance}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Credit Balance"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreditBalance" value="#{_item.creditBalance}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Close Status"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText styleClass="#{_item.closeStatus ? 'boolean-true' : 'boolean-false'}" value=""/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create By"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateBy" value="#{_item.createBy}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create Date"/>
+					</f:facet>
+					<h:link outcome="/view/accountYear/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateDateTime" value="#{_item.createDateTime}">						
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{accountYearBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<link rel="icon" href="#{resource['favicon.ico']}" />
+	<h:outputStylesheet name="custom-style.css" />
+	<div class="sas-header">
+		<div class="sas-header-content">
+			<div class="sas-logo">
+				<h:link id="homeLink" outcome="/view/index.xhtml">
+					<img src="#{resource['sas_logo3.png']}" width="70px;"
+						alt="S-Acc Plus" />
+				</h:link>
+			</div>
+			<div class="sas-dd-branch-company">
+				<h:selectOneMenu value="#{sessionBean.company.id}"
+					rendered="#{sessionBean.showCompanyList() and !empty sessionBean.companyList and sessionBean.companyList.size()>1}"
+					onchange="submit()"
+					valueChangeListener="#{sessionBean.changeCompany}">
+					<f:selectItems value="#{sessionBean.companyList}" var="item"
+						itemValue="#{item.id}"
+						itemLabel="#{(sessionBean.local)? item.companyName : item.companyNameEn}" />
+				</h:selectOneMenu>
+				&#160;&#160;&#160;&#160;
+				<h:selectOneMenu value="#{sessionBean.branch.id}"
+					rendered="#{sessionBean.showBranch() and !empty sessionBean.branchList and sessionBean.branchList.size()>1}"
+					onchange="submit()"
+					valueChangeListener="#{sessionBean.changeBranch}">
+					<f:selectItems value="#{sessionBean.branchList}" var="item"
+						itemValue="#{item.id}"
+						itemLabel="#{(sessionBean.local)? item.branchName : item.branchNameEn}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="sas-lang-swicht">
+				<h:commandButton action="#{languageBean.countryLocaleCodeChanged}"
+					image="#{resource['lao_flag.png']}" style="width:20px;">
+					<f:setPropertyActionListener target="#{languageBean.localeCode}"
+						value="lo_LA" />
+					<f:ajax execute="@form" render="@all" />
+				</h:commandButton>
+				&#160;
+				<h:commandButton action="#{languageBean.countryLocaleCodeChanged}"
+					image="#{resource['english_flag.png']}" style="width:20px;">
+					<f:setPropertyActionListener target="#{languageBean.localeCode}"
+						value="en" />
+					<f:ajax execute="@form" render="@all" />
+				</h:commandButton>
+			</div>
+			<div class="sas-logout">
+				<img src="#{resource['theme/ico_logout.png']}" alt="Logout"
+					style="margin-right: 5px;" />
+				<h:commandLink action="#{auth.logout()}" value="ลงชื่อออก"
+					style="color:#FFFFFF;font: inherit;" rendered="#{auth.loggedIn}">
+				</h:commandLink>
+			</div>
+		</div>
+	</div>
+	<div class="sas-sub-header">
+
+		<div class="sas-company-image">
+			<a4j:mediaOutput element="img" mimeType="image/jpeg"
+				createContent="#{sessionBean.paint}"
+				style="width:75px; height:75px;" cacheable="false">
+			</a4j:mediaOutput>
+		</div>
+		<div class="sas-profile">
+			<h:panelGrid columns="2" columnClasses="sas-profile-col-label"
+				rowClasses="sas-profile-rows">
+				<h:outputText value="Company Name :"
+					rendered="#{sessionBean.showCompanyLabel()}" />
+				<h:outputText rendered="#{sessionBean.showCompanyLabel()}"
+					value="#{(sessionBean.local)? sessionBean.company.companyName : sessionBean.company.companyNameEn}" />
+
+				<h:outputText value="Branch Name :"
+					rendered="#{sessionBean.showBranch() and !empty sessionBean.branchList}" />
+				<h:outputText
+					rendered="#{sessionBean.showBranch() and !empty sessionBean.branchList}"
+					value="#{(sessionBean.local)? sessionBean.branch.branchName : sessionBean.branch.branchNameEn}" />
+
+				<h:outputLabel value="Login Name :" />
+				<h:outputText
+					value="#{(sessionBean.local)? sessionBean.userProfile.userFullName : sessionBean.userProfile.userFullNameEn}" />
+			</h:panelGrid>
+
+		</div>
+
+	</div>
+
+
+</ui:component>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="faa59e07-bb30-4084-96e2-2997146b5fa3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="userFullName" class="java.lang.String">
+		<fieldDescription><![CDATA[userFullName]]></fieldDescription>
+	</field>
+	<field name="userFullNameEn" class="java.lang.String">
+		<fieldDescription><![CDATA[userFullNameEn]]></fieldDescription>
+	</field>
+	<field name="userLoginName" class="java.lang.String">
+		<fieldDescription><![CDATA[userLoginName]]></fieldDescription>
+	</field>
+	<field name="userPassword" class="java.lang.String">
+		<fieldDescription><![CDATA[userPassword]]></fieldDescription>
+	</field>
+	<field name="userStatus" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[userStatus]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f387e6fc-4c75-4dd5-9f73-40d8e7d3e22e" x="56" y="19" width="440" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Test]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b53b8f69-4502-4b85-a827-54f22a0a9be5" x="5" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[userFullName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="21ff3500-9d9e-4a9b-80fe-582aeefa2daa" x="146" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[userFullNameEn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79e7336a-93dc-48cd-a5bf-5ee36145177a" x="306" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[userLoginName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79910292-fa8e-4514-a27a-f56ef10f34cd" x="448" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[userPassword]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="2776492e-4526-4d35-92ef-829140a56ece" x="5" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Lao UI" pdfFontName="LaoUI.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{userFullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="598c8003-5513-44f4-83e6-760757eaf842" x="146" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Lao UI" pdfFontName="LaoUI.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{userFullNameEn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d7d13c4a-149b-449e-b1e9-127386327474" x="306" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Lao UI" pdfFontName="LaoUI.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{userLoginName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bd470170-54b0-4d7a-8242-54fa3e4694a4" x="448" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Lao UI" pdfFontName="LaoUI.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{userPassword}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

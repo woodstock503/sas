@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{accountBalanceBean.id}"/>
+		<f:event type="preRenderView" listener="#{accountBalanceBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Account Balance"/>
+
+	<ui:define name="header">
+		Account Balance
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty accountBalanceBean.id}">
+				Edit existing Account Balance
+			</c:when>
+			<c:otherwise>
+				Create a new Account Balance
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="accountBalanceBeanAccountBalanceChartOfAccount" value="Chart Of Account:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{chartOfAccountBean.converter}" id="accountBalanceBeanAccountBalanceChartOfAccount" value="#{accountBalanceBean.accountBalance.chartOfAccount}">
+						<f:selectItem/>
+						<f:selectItems value="#{chartOfAccountBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="accountBalanceBeanAccountBalanceChartOfAccount" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBalanceBeanAccountBalanceDebitBalance" value="Debit Balance:"/>
+				<h:panelGroup>
+					<h:inputText id="accountBalanceBeanAccountBalanceDebitBalance" value="#{accountBalanceBean.accountBalance.debitBalance}"/>
+					<h:message for="accountBalanceBeanAccountBalanceDebitBalance" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBalanceBeanAccountBalanceCreditBalance" value="Credit Balance:"/>
+				<h:panelGroup>
+					<h:inputText id="accountBalanceBeanAccountBalanceCreditBalance" value="#{accountBalanceBean.accountBalance.creditBalance}"/>
+					<h:message for="accountBalanceBeanAccountBalanceCreditBalance" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBalanceBeanAccountBalanceCompany" value="Company:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{companyBean.converter}" id="accountBalanceBeanAccountBalanceCompany" value="#{accountBalanceBean.accountBalance.company}">
+						<f:selectItem/>
+						<f:selectItems value="#{companyBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="accountBalanceBeanAccountBalanceCompany" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBalanceBeanAccountBalanceBalanceAccountYear" value="Balance Account Year:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountYearBean.converter}" id="accountBalanceBeanAccountBalanceBalanceAccountYear" value="#{accountBalanceBean.accountBalance.balanceAccountYear}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountYearBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="accountBalanceBeanAccountBalanceBalanceAccountYear" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBalanceBeanAccountBalanceOpeningAccountYear" value="Opening Account Year:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountYearBean.converter}" id="accountBalanceBeanAccountBalanceOpeningAccountYear" value="#{accountBalanceBean.accountBalance.openingAccountYear}">
+						<f:selectItem/>
+						<f:selectItems value="#{accountYearBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="accountBalanceBeanAccountBalanceOpeningAccountYear" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{accountBalanceBean.update}" styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test="#{!empty accountBalanceBean.id}">
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value="#{accountBalanceBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{accountBalanceBean.delete}" styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

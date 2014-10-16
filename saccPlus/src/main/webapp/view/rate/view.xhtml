@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{rateBean.id}"/>
+		<f:event type="preRenderView" listener="#{rateBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Rate"/>
+
+	<ui:define name="header">
+		Rate
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Rate
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+	<h:form id="view">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="rateBeanRateRateDate" value="Rate Date:"/>
+			<h:outputText id="rateBeanRateRateDate" value="#{rateBean.rate.rateDate}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateCurrency" value="Currency:"/>
+			<h:link id="rateBeanRateCurrency" outcome="/view/currency/view" value="#{rateBean.rate.currency.country}"  >
+				<f:param name="id" value="#{rateBean.rate.currency.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateCurrencyEn" value="Currency(En):"/>
+			<h:link id="rateBeanRateCurrencyEn" outcome="/view/currency/view" value="#{rateBean.rate.currency.countryEn}"  >
+				<f:param name="id" value="#{rateBean.rate.currency.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateAbbreviation" value="Abbreviation:"/>
+			<h:link id="rateBeanRateAbbreviation" outcome="/view/currency/view" value="#{rateBean.rate.currency.abbreviation}"  >
+				<f:param name="id" value="#{rateBean.rate.currency.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateRate" value="Rate:"/>
+			<h:outputText id="rateBeanRateRate" value="#{rateBean.rate.rate}"/>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateCreateBy" value="Create By:"/>
+			<h:outputText id="rateBeanRateCreateBy" value="#{rateBean.rate.createBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateCreateDateTime" value="Create Date Time:"/>
+			<h:outputText id="rateBeanRateCreateDateTime" value="#{rateBean.rate.createDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateUpdateBy" value="Update By:"/>
+			<h:outputText id="rateBeanRateUpdateBy" value="#{rateBean.rate.updateBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="rateBeanRateUpdateDateTime" value="Update Date Time:"/>
+			<h:outputText id="rateBeanRateUpdateDateTime" value="#{rateBean.rate.updateDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel value="Rate Status:"/>
+			<h:outputText styleClass="#{rateBean.rate.rateStatus ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:commandButton value="View All" action="search?faces-redirect=true" styleClass="btn btn-primary"/> &nbsp;
+			<h:commandButton value="Edit" action="create?faces-redirect=true" includeViewParams="true" styleClass="btn btn-primary"/>&nbsp;
+		</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

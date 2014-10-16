@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{userProfileBean.id}" />
+		<f:event type="preRenderView" listener="#{userProfileBean.retrieve}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View User Profile" />
+
+	<ui:define name="header">
+		User Profile
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing User Profile
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="view">
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="userProfileBeanUserProfileUserLoginName"
+					value="User Login Name:" />
+				<h:outputText id="userProfileBeanUserProfileUserLoginName"
+					value="#{userProfileBean.userProfile.userLoginName}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUserFullName"
+					value="User Full Name:" />
+				<h:outputText id="userProfileBeanUserProfileUserFullName"
+					value="#{userProfileBean.userProfile.userFullName}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUserFullNameEn"
+					value="User Full Name En:" />
+				<h:outputText id="userProfileBeanUserProfileUserFullNameEn"
+					value="#{userProfileBean.userProfile.userFullNameEn}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileCreateBy"
+					value="Create By:" />
+				<h:outputText id="userProfileBeanUserProfileCreateBy"
+					value="#{userProfileBean.userProfile.createBy}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileCreateDateTime"
+					value="Create Date Time:" />
+				<h:outputText id="userProfileBeanUserProfileCreateDateTime"
+					value="#{userProfileBean.userProfile.createDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss"
+						locale="en/US" />
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUpdateBy"
+					value="Update By:" />
+				<h:outputText id="userProfileBeanUserProfileUpdateBy"
+					value="#{userProfileBean.userProfile.updateBy}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileUpdateDateTime"
+					value="Update Date Time:" />
+				<h:outputText id="userProfileBeanUserProfileUpdateDateTime"
+					value="#{userProfileBean.userProfile.updateDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss"
+						locale="en/US" />
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileInActiveReason"
+					value="In Active Reason:" />
+				<h:outputText id="userProfileBeanUserProfileInActiveReason"
+					value="#{userProfileBean.userProfile.inActiveReason}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileEmail" value="Email:" />
+				<h:outputText id="userProfileBeanUserProfileEmail"
+					value="#{userProfileBean.userProfile.email}" />
+				<h:outputText />
+				<h:outputLabel for="userProfileBeanUserProfileRoles" value="Roles:" />
+				<rich:dataTable id="userProfileBeanUserProfileRoles"
+					styleClass="data-table"
+					value="#{forgeview:asList(userProfileBean.userProfile.userRoles)}"
+					var="_item">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Role Name" />
+						</f:facet>
+						<h:outputText id="itemRoleName"
+							value="#{(sessionBean.local)? _item.role.roleName : _item.role.roleNameEn}" />
+					</h:column>
+				</rich:dataTable>
+				<h:outputText />
+
+				<h:outputLabel for="userProfileBeanUserProfileCompanys" rendered="#{sessionBean.showCompanyList()}"
+					value="Companys:" />
+				<rich:dataTable id="userProfileBeanUserProfileCompanys"
+					styleClass="data-table"
+					value="#{forgeview:asList(userProfileBean.userProfile.userCompanys)}"
+					var="_item"
+					rendered="#{sessionBean.showCompanyList()}">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Company Name" />
+						</f:facet>
+						<h:outputText id="itemCompanyName"
+							value="#{(sessionBean.local)? _item.company.companyName : _item.company.companyNameEn}" />
+					</h:column>
+				</rich:dataTable>
+				<h:outputText rendered="#{sessionBean.showCompanyList()}"/>
+
+
+				<h:outputLabel for="userProfileBeanUserProfileBranchs" rendered="#{sessionBean.showBranch()}"
+					value="Branchs:" />
+				<rich:dataTable id="userProfileBeanUserProfileBranchs" rendered="#{sessionBean.showBranch()}"
+					styleClass="data-table" 
+					value="#{forgeview:asList(userProfileBean.userProfile.userBranchs)}"
+					var="_item">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Branch Name" />
+						</f:facet>
+						<h:outputText id="itemBranchName"
+							value="#{(sessionBean.local)? _item.branch.branchName : _item.branch.branchNameEn}" />
+					</h:column>
+				</rich:dataTable>
+				<h:outputText rendered="#{sessionBean.showBranch()}"/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandButton value="View All"
+					action="search?faces-redirect=true" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:commandButton value="Edit" action="create?faces-redirect=true"
+					includeViewParams="true" styleClass="btn btn-primary" />
+				&nbsp;
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

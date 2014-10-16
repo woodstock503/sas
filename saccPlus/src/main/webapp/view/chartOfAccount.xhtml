@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Search Chart Of Account entities" />
+
+	<ui:define name="header">
+		Chart Of Account
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Chart Of Account entities
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="search">
+			<table>
+				<tr>
+					<td colspan="2">&#160;<h:commandButton
+							action="#{chartOfAccountBean.initAdd()}" value="Create">
+							<f:ajax execute="@this" render="@form" />
+						</h:commandButton></td>
+				</tr>
+			</table>
+			<br></br>
+			<table style="width: 100%">
+				<tr valign="top">
+					<td><rich:tree toggleType="client" selectionType="ajax"
+							render="@form" execute="@form"
+							selectionChangeListener="#{chartOfAccountBean.selectedChart}"
+							var="item">
+							<rich:treeModelRecursiveAdaptor
+								roots="#{chartOfAccountBean.rootNodes}"
+								nodes="#{chartOfAccountBean.findUnderChart(item)}">
+								<rich:treeNode expanded="true">
+									<h:outputText
+										value="#{item.chartOfAccountCode}-#{item.chartOfAccountName}" />&#160;
+									<h:graphicImage
+										name="#{item.chartOfAccountStatus ? 'true.png' : 'false.png'}" />
+								</rich:treeNode>
+								<rich:treeModelAdaptor
+									nodes="#{chartOfAccountBean.findUnderLastChart(item)}">
+									<rich:treeNode expanded="true">
+										<h:outputText
+											value="#{item.chartOfAccountCode}-#{item.chartOfAccountName}" />&#160;
+										<h:graphicImage
+											name="#{item.chartOfAccountStatus ? 'true.png' : 'false.png'}" />
+									</rich:treeNode>
+								</rich:treeModelAdaptor>
+							</rich:treeModelRecursiveAdaptor>
+						</rich:tree></td>
+					<td style="width: 80%"><rich:panel id="addPanel"
+							header="#{(chartOfAccountBean.showAdd)? 'Create Chart Of Account':'Edit Chart Of Account'}"
+							rendered="#{chartOfAccountBean.showAdd or chartOfAccountBean.showEdit}">
+							<h:panelGrid columnClasses="label,component,required" columns="3">
+								<h:outputLabel value="Code:" />
+								<h:panelGroup>
+									<h:inputText
+										value="#{chartOfAccountBean.model.chartOfAccountCode}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Upper Code:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{chartOfAccountBean.model.chartOfAccountCodeMain}" />&#160;
+									<h:commandLink action="#{chartOfAccountBean.clearMainChart()}"
+										value="Clear">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandLink>
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Lo Name:" />
+								<h:panelGroup>
+									<h:inputText
+										value="#{chartOfAccountBean.model.chartOfAccountName}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="En Name:" />
+								<h:panelGroup>
+									<h:inputText
+										value="#{chartOfAccountBean.model.chartOfAccountNameEn}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Is Active:" />
+								<h:panelGroup>
+									<h:selectBooleanCheckbox
+										value="#{chartOfAccountBean.model.chartOfAccountStatus}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Account Type:" />
+								<h:panelGroup>
+									<h:selectOneMenu converter="#{accountTypeBean.converter}"
+										value="#{chartOfAccountBean.model.accountType}">
+										<f:selectItems value="#{accountTypeBean.all}" var="item"
+											itemLabel="#{(sessionBean.local)? item.accountTypeName : item.accountTypeNameEn}"/>
+									</h:selectOneMenu>
+								</h:panelGroup>
+								<h:outputText />
+
+								<h:outputLabel value="Default Currency:" />
+								<h:panelGroup>
+									<h:selectOneMenu converter="#{currencyBean.converter}"
+										value="#{chartOfAccountBean.model.currency}">
+										<f:selectItems value="#{chartOfAccountBean.currencyList}"
+											var="item" itemLabel="#{item.abbreviation}"/>
+									</h:selectOneMenu>
+								</h:panelGroup>
+								<h:outputText />
+
+							</h:panelGrid>
+
+							<div class="buttons">
+								<a4j:commandButton value="Save"
+									rendered="#{!chartOfAccountBean.showView}"
+									onclick="#{rich:component('saveChart')}.show();return false" />
+								<a4j:jsFunction name="submitChart"
+									action="#{chartOfAccountBean.update}" execute="@form" />
+								&#160;
+								<a4j:commandButton value="Delete"
+									rendered="#{chartOfAccountBean.showEdit}"
+									onclick="#{rich:component('deleteChart')}.show();return false" />
+								<a4j:jsFunction name="deleteChart" render="@form"
+									execute="@form" actionListener="#{chartOfAccountBean.delete}" />
+								&#160;
+								<h:commandButton value="Cancel"
+									rendered="#{chartOfAccountBean.showEdit}"
+									action="#{chartOfAccountBean.cancelEdit}">
+									<f:ajax execute="@this" render="@form" />
+								</h:commandButton>
+								<h:commandButton value="Cancel" 
+									rendered="#{chartOfAccountBean.showAdd}"
+									action="#{chartOfAccountBean.cancelAdd}">
+									<f:ajax execute="@this" render="@form" />
+								</h:commandButton>
+							</div>
+						</rich:panel> <rich:panel header="View Chart Of Account" id="viewPanel"
+							rendered="#{chartOfAccountBean.showView}">
+							<h:panelGrid columnClasses="label,component,required" columns="3">
+								<h:outputLabel value="Code:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{chartOfAccountBean.model.chartOfAccountCode}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Upper Code:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{chartOfAccountBean.model.chartOfAccountCodeMain}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Lo Name:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{chartOfAccountBean.model.chartOfAccountName}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="En Name:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{chartOfAccountBean.model.chartOfAccountNameEn}" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Is Active:" />
+								<h:panelGroup>
+									<h:outputText
+										styleClass="#{chartOfAccountBean.model.chartOfAccountStatus ? 'boolean-true' : 'boolean-false'}"
+										value="" />
+								</h:panelGroup>
+								<h:outputText />
+								<h:outputLabel value="Account Type:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{(sessionBean.local)? chartOfAccountBean.model.accountType.accountTypeName :chartOfAccountBean.model.accountType.accountTypeNameEn}" />
+								</h:panelGroup>
+								<h:outputText />
+
+								<h:outputLabel value="Default Currency:" />
+								<h:panelGroup>
+									<h:outputText
+										value="#{chartOfAccountBean.model.currency.abbreviation}" />
+								</h:panelGroup>
+								<h:outputText />
+							</h:panelGrid>
+
+							<div class="buttons">
+								<h:commandButton action="#{chartOfAccountBean.initEdit}"
+									value="Edit">
+									<f:ajax execute="@this" render="@form" />
+								</h:commandButton>
+								&#160;
+								<h:commandButton value="Cancel"
+									action="#{chartOfAccountBean.cancel}">
+									<f:ajax execute="@this" render="@form" />
+								</h:commandButton>
+							</div>
+						</rich:panel></td>
+				</tr>
+			</table>
+		</h:form>
+		<!-- save edit -->
+		<rich:popupPanel modal="true" id="saveChart" styleClass="popup-panel"
+			width="400" height="200">
+			<f:facet name="header">Confirmation</f:facet>
+			<div class="panel-image">
+				<h:graphicImage name="confirm.png" styleClass="image-confirm" />
+			</div>
+			<div class="popup-message">
+				<h:outputText value="#{messages['label_confirmDailog']}"
+					styleClass="popup-message-text" />
+			</div>
+			<div class="popup-button">
+				<input type="button" value="OK"
+					onclick="#{rich:component('saveChart')}.hide();submitChart();return false" />&#160;
+				<input type="button" value="Cancel"
+					onclick="#{rich:component('saveChart')}.hide();return false" />
+			</div>
+		</rich:popupPanel>
+
+		<!-- delete -->
+		<rich:popupPanel modal="true" id="deleteChart"
+			styleClass="popup-panel" width="400" height="200">
+			<f:facet name="header">Confirmation</f:facet>
+			<div class="panel-image">
+				<h:graphicImage name="confirm.png" styleClass="image-confirm" />
+			</div>
+			<div class="popup-message">
+				<h:outputText value="#{messages['label_confirmDailog']}"
+					styleClass="popup-message-text" />
+			</div>
+			<div class="popup-button">
+				<input type="button" value="OK"
+					onclick="#{rich:component('deleteChart')}.hide();deleteChart();return false" />&#160;
+				<input type="button" value="Cancel"
+					onclick="#{rich:component('deleteChart')}.hide();return false" />
+			</div>
+		</rich:popupPanel>
+	</ui:define>
+
+</ui:composition>

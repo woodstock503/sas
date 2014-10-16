@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{periodBean.page}"/>
+		<f:event type="preRenderView" listener="#{periodBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Period entities"/>
+
+	<ui:define name="header">
+		Period
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Period entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="periodBeanExampleCompany" value="Company:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{companyBean.converter}" id="periodBeanExampleCompany" value="#{periodBean.example.company}">
+								<f:selectItem/>
+								<f:selectItems value="#{companyBean.all}" var="item"  itemLabel="#{(sessionBean.local)? item.companyName: item.companyNameEn}"/>
+							</h:selectOneMenu>
+							<h:message for="periodBeanExampleCompany" styleClass="error"/>
+						</h:panelGroup>
+						<h:commandButton value="Search" action="#{periodBean.search}" styleClass="btn btn-primary"/>
+					</h:panelGrid>
+				</h:panelGroup>
+			</f:validateBean>
+			<br/>
+			<br/>
+			<rich:dataTable id="periodBeanPageItems" styleClass="data-table" value="#{periodBean.pageItems}" var="_item"  style="width:100%">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Start Date"/>
+					</f:facet>
+					<h:link outcome="/view/period/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemStartDate" value="#{_item.startDate}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="End Date"/>
+					</f:facet>
+					<h:link outcome="/view/period/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemEndDate" value="#{_item.endDate}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Company"/>
+					</f:facet>
+					<h:link outcome="/view/period/view">
+						<f:param name="id" value="#{_item.id}"/>
+							<h:outputText id="itemCompany" value="#{(sessionBean.local )? _item.company.companyName : _item.company.companyNameEn }"/>
+					</h:link>
+				</h:column>
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{periodBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

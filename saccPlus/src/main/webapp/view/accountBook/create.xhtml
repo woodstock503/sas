@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{accountBookBean.id}"/>
+		<f:event type="preRenderView" listener="#{accountBookBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Account Book"/>
+
+	<ui:define name="header">
+		Account Book
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty accountBookBean.id}">
+				Edit existing Account Book
+			</c:when>
+			<c:otherwise>
+				Create a new Account Book
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">			
+				<h:outputLabel for="accountBookBeanAccountBookAccountBookCode" value="Account Book Code:"/>
+				<h:panelGroup>
+					<h:inputText id="accountBookBeanAccountBookAccountBookCode" value="#{accountBookBean.accountBook.accountBookCode}"/>
+					<h:message for="accountBookBeanAccountBookAccountBookCode" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBookBeanAccountBookAccountBookName" value="Account Book Name:"/>
+				<h:panelGroup>
+					<h:inputText id="accountBookBeanAccountBookAccountBookName" value="#{accountBookBean.accountBook.accountBookName}"/>
+					<h:message for="accountBookBeanAccountBookAccountBookName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBookBeanAccountBookAccountBookNameEn" value="Account Book Name En:"/>
+				<h:panelGroup>
+					<h:inputText id="accountBookBeanAccountBookAccountBookNameEn" value="#{accountBookBean.accountBook.accountBookNameEn}"/>
+					<h:message for="accountBookBeanAccountBookAccountBookNameEn" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="accountBookBeanAccountBookDescription" value="Description:"/>
+				<h:panelGroup>
+					<h:inputTextarea  id="accountBookBeanAccountBookDescription" value="#{accountBookBean.accountBook.description}"/>
+					<h:message for="accountBookBeanAccountBookDescription" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+					<h:commandButton value="Save" action="#{accountBookBean.update}" styleClass="btn btn-primary"/>&nbsp;
+				<c:choose>
+					<c:when test="#{!empty accountBookBean.id}">
+						<h:commandButton value="Cancel" action="view?faces-redirect=true" styleClass="btn btn-primary">
+							<f:param name="id" value="#{accountBookBean.id}"/>
+						</h:commandButton>&nbsp;
+							<h:commandButton value="Delete" action="#{accountBookBean.delete}" styleClass="btn btn-primary"/>&nbsp;
+					</c:when>
+					<c:otherwise>
+							<h:commandButton value="Cancel" action="search?faces-redirect=true" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{accountYearBean.id}" />
+		<f:event type="preRenderView" listener="#{accountYearBean.retrieve}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Account Year" />
+
+	<ui:define name="header">
+		Account Year
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Account Year
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+		<h:form id="view">
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="accountYearBeanAccountYearStartDate"
+					value="Start Date:" />
+				<h:outputText id="accountYearBeanAccountYearStartDate"
+					value="#{accountYearBean.accountYear.startDate}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearEndDate"
+					value="End Date:" />
+				<h:outputText id="accountYearBeanAccountYearEndDate"
+					value="#{accountYearBean.accountYear.endDate}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearDebitBalance"
+					value="Debit Balance:" />
+				<h:outputText id="accountYearBeanAccountYearDebitBalance"
+					value="#{accountYearBean.accountYear.debitBalance}" />
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearCreditBalance"
+					value="Credit Balance:" />
+				<h:outputText id="accountYearBeanAccountYearCreditBalance"
+					value="#{accountYearBean.accountYear.creditBalance}" />
+				<h:outputText />
+				<h:outputLabel value="Close Status:" />
+				<h:outputText
+					styleClass="#{accountYearBean.accountYear.closeStatus ? 'boolean-true' : 'boolean-false'}"
+					value="" />
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearCompany"
+					value="Company:" />
+				<h:outputText id="accountYearBeanAccountYearCompany"
+					value="#{(sessionBean.local)? accountYearBean.accountYear.company.companyName : accountYearBean.accountYear.company.companyNameEn}" />
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearCreateBy"
+					value="Create By:" />
+				<h:outputText id="accountYearBeanAccountYearCreateBy"
+					value="#{accountYearBean.accountYear.createBy}" />
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearCreateDateTime"
+					value="Create Date Time:" />
+				<h:outputText id="accountYearBeanAccountYearCreateDateTime"
+					value="#{accountYearBean.accountYear.createDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearUpdateBy"
+					value="Update By:" />
+				<h:outputText id="accountYearBeanAccountYearUpdateBy"
+					value="#{accountYearBean.accountYear.updateBy}" />
+				<h:outputText />
+				<h:outputLabel for="accountYearBeanAccountYearUpdateDateTime"
+					value="Update Date Time:" />
+				<h:outputText id="accountYearBeanAccountYearUpdateDateTime"
+					value="#{accountYearBean.accountYear.updateDateTime}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+				</h:outputText>
+				<h:outputText />
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandButton value="View All" action="search?faces-redirect=true" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:commandButton value="ปิดบัญชีสิ้นปี"	onclick="#{rich:component('closeAccountYear')}.show();return false"
+					rendered="#{!accountYearBean.accountYear.closeStatus}" />
+				&nbsp;
+				<a4j:jsFunction name="submitCloseAccount"
+							action="#{accountYearBean.closeAccountYear()}" execute="@form"
+							render="@form" />
+			</div>
+		</h:form>
+
+		<!-- save -->
+		<rich:popupPanel modal="true" id="closeAccountYear"
+			styleClass="popup-panel" width="600" height="400">
+			<f:facet name="header">ปิดบัญชีสิ้นปี</f:facet>
+			<div class="panel-image">
+				<h:graphicImage name="confirm.png" styleClass="image-confirm" />
+			</div>
+			<div class="popup-message">
+				<h:outputText value="#{messages['label_confirmDailog']}"
+					styleClass="popup-message-text" />
+				<br/>
+				<br/>
+				<br/>
+				<h:outputText value="เมื่อท่านปิดบัญชีสิ้นปีแล้ว จะไม่สามารถ บันทึกรายการได้อีก" styleClass="popup-message-text" />
+			</div>
+			<div style="margin:0px auto;bottom:20px;position: absolute;">
+				<input type="button" value="OK"
+					onclick="#{rich:component('closeAccountYear')}.hide();submitCloseAccount();return false" />&#160;
+				<input type="button" value="Cancel"
+					onclick="#{rich:component('closeAccountYear')}.hide();return false" />
+			</div>
+		</rich:popupPanel>
+	</ui:define>
+
+</ui:composition>

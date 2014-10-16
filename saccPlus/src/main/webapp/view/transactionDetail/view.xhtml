@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{transactionDetailBean.id}"/>
+		<f:event type="preRenderView" listener="#{transactionDetailBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Transaction Detail"/>
+
+	<ui:define name="header">
+		Transaction Detail
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Transaction Detail
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="transactionDetailBeanTransactionDetailChartOfAccount" value="Chart Of Account:"/>
+			<h:link id="transactionDetailBeanTransactionDetailChartOfAccount" outcome="/view/chartOfAccount/view" value="#{transactionDetailBean.transactionDetail.chartOfAccount}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.chartOfAccount.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAccountType" value="Account Type:"/>
+			<h:link id="transactionDetailBeanTransactionDetailAccountType" outcome="/view/accountType/view" value="#{transactionDetailBean.transactionDetail.accountType}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.accountType.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailDepartment" value="Department:"/>
+			<h:link id="transactionDetailBeanTransactionDetailDepartment" outcome="/view/department/view" value="#{transactionDetailBean.transactionDetail.department}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.department.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailDescription" value="Description:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailDescription" value="#{transactionDetailBean.transactionDetail.description}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailDescriptionEn" value="Description En:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailDescriptionEn" value="#{transactionDetailBean.transactionDetail.descriptionEn}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAmountDebit" value="Amount Debit:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailAmountDebit" value="#{transactionDetailBean.transactionDetail.amountDebit}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAmountCredit" value="Amount Credit:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailAmountCredit" value="#{transactionDetailBean.transactionDetail.amountCredit}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAmountDebitLo" value="Amount Debit Lo:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailAmountDebitLo" value="#{transactionDetailBean.transactionDetail.amountDebitLo}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAmountCreditLo" value="Amount Credit Lo:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailAmountCreditLo" value="#{transactionDetailBean.transactionDetail.amountCreditLo}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailRate" value="Rate:"/>
+			<h:link id="transactionDetailBeanTransactionDetailRate" outcome="/view/rate/view" value="#{transactionDetailBean.transactionDetail.rate}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.rate.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailTransactionRate" value="Transaction Rate:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailTransactionRate" value="#{transactionDetailBean.transactionDetail.transactionRate}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailTransactionMaster" value="Transaction Master:"/>
+			<h:link id="transactionDetailBeanTransactionDetailTransactionMaster" outcome="/view/transactionMaster/view" value="#{transactionDetailBean.transactionDetail.transactionMaster}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.transactionMaster.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailCompany" value="Company:"/>
+			<h:link id="transactionDetailBeanTransactionDetailCompany" outcome="/view/company/view" value="#{transactionDetailBean.transactionDetail.company}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.company.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailBranch" value="Branch:"/>
+			<h:link id="transactionDetailBeanTransactionDetailBranch" outcome="/view/branch/view" value="#{transactionDetailBean.transactionDetail.branch}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.branch.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAccountYear" value="Account Year:"/>
+			<h:link id="transactionDetailBeanTransactionDetailAccountYear" outcome="/view/accountYear/view" value="#{transactionDetailBean.transactionDetail.accountYear}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.accountYear.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailAccountBook" value="Account Book:"/>
+			<h:link id="transactionDetailBeanTransactionDetailAccountBook" outcome="/view/accountBook/view" value="#{transactionDetailBean.transactionDetail.accountBook}">
+				<f:param name="id" value="#{transactionDetailBean.transactionDetail.accountBook.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailCreateBy" value="Create By:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailCreateBy" value="#{transactionDetailBean.transactionDetail.createBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailCreateDateTime" value="Create Date Time:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailCreateDateTime" value="#{transactionDetailBean.transactionDetail.createDateTime}">
+				<f:convertDateTime type="both"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailUpdateBy" value="Update By:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailUpdateBy" value="#{transactionDetailBean.transactionDetail.updateBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="transactionDetailBeanTransactionDetailUpdateDateTime" value="Update Date Time:"/>
+			<h:outputText id="transactionDetailBeanTransactionDetailUpdateDateTime" value="#{transactionDetailBean.transactionDetail.updateDateTime}">
+				<f:convertDateTime type="both"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel value="Transaction Detail Status:"/>
+			<h:outputText styleClass="#{transactionDetailBean.transactionDetail.transactionDetailStatus ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

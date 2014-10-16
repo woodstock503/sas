@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Journal Transaction" />
+
+	<ui:define name="header">
+		#{messages['jaurnalTransaction_menu_name']}
+	</ui:define>
+
+	<ui:define name="subheader">
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+
+		<h:form id="transaction">
+			<rich:messages />
+			<table>
+				<tr>
+					<td><h:outputText value="ปี  :" /></td>
+					<td><rich:calendar datePattern="yyyy" required="true" requiredMessage="Yaer is require."
+							disabled="#{!empty openingAccountBalanceBean.accountBalanceList}"
+							value="#{openingAccountBalanceBean.balanceDate}" /></td>
+					<td><h:commandButton value="สร้าง ยอดยกมาเบื้องต้น"
+							rendered="#{empty openingAccountBalanceBean.accountBalanceList}"
+							action="#{openingAccountBalanceBean.create()}"
+							styleClass="btn btn-primary" /></td>
+					<td><h:commandButton value="Save"
+							onclick="#{rich:component('saveJournal')}.show();return false" />
+						<a4j:jsFunction name="submitJournal"
+							action="#{openingAccountBalanceBean.save()}" execute="@form"
+							render="@form" /> &#160;</td>
+				</tr>
+			</table>
+
+
+			<br />
+			<br />
+			<rich:dataTable
+				value="#{openingAccountBalanceBean.accountBalanceList}"
+				style="width:100%;" var="item" id="repeat" rowKeyVar="row"
+				styleClass="data-table">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column style="text-align:center">
+							<h:outputText value="Code" />
+						</rich:column>
+						<rich:column style="text-align:center">
+							<h:outputText value="Name" />
+						</rich:column>
+						<rich:column style="text-align:center">
+							<h:outputText value="Type" />
+						</rich:column>
+						<rich:column style="text-align:center">
+							<h:outputText value="Description" />
+						</rich:column>
+						<rich:column style="text-align:center">
+							<h:outputText value="Description En" />
+						</rich:column>
+						<rich:column style="text-align:center">
+							<h:outputText value="Debit" />
+						</rich:column>
+						<rich:column style="text-align:center">
+							<h:outputText value="Credit" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:columnGroup>
+					<rich:column>
+						<h:outputText value="#{item.chartOfAccount.chartOfAccountCode}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText
+							value="#{(sessionBean.local)? item.chartOfAccount.chartOfAccountName : item.chartOfAccount.chartOfAccountNameEn}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText
+							value="#{(sessionBean.local)? item.chartOfAccount.accountType.accountTypeName : item.chartOfAccount.accountType.accountTypeNameEn}" />
+					</rich:column>
+					<rich:column>
+						<h:inputText value="#{item.description}" style="width:100%"
+							id="description" onfocus="this.select();" />
+					</rich:column>
+					<rich:column>
+						<h:inputText value="#{item.descriptionEn}" style="width:100%"
+							id="descriptionEn" onfocus="this.select();" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:inputText style="text-align:right;width:100%;"
+							onfocus="this.select();" id="loAmountDebit"
+							onkeypress="return isNumberKey(event,this.value)"
+							value="#{item.debitBalance}">
+							<a4j:ajax event="change" execute="@all" render="repeat"
+								listener="#{openingAccountBalanceBean.calculateLoAmountDebit(row)}"
+								oncomplete="#{openingAccountBalanceBean.tabToLoAmountCredit()}" />
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:inputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:inputText style="text-align:right;width:100%;"
+							onfocus="this.select();" id="loAmountCredit"
+							onkeypress="return isNumberKey(event,this.value)"
+							value="#{item.creditBalance}">
+							<a4j:ajax event="change" execute="@all" render="repeat"
+								listener="#{openingAccountBalanceBean.calculateLoAmountCredit(row)}" />
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:inputText>
+					</rich:column>
+				</rich:columnGroup>
+				<f:facet name="footer">
+					<rich:columnGroup>
+						<rich:column colspan="5"></rich:column>
+						<rich:column style="text-align:right">
+							<h:outputText
+								value="#{openingAccountBalanceBean.totalLoAmtDebit}"
+								id="totalLoAmtDebit">
+								<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column style="text-align:right">
+							<h:outputText
+								value="#{openingAccountBalanceBean.totalLoAmtCredit}"
+								id="totalLoAmtCredit">
+								<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column style="text-align:right" breakRowBefore="true"
+							colspan="5">
+							<h:outputText
+								value="#{messages['journalTransaction_local_Amount_dr_cr']}" />
+						</rich:column>
+						<rich:column colspan="2"
+							style="text-align:right;FONT-SIZE: medium;COLOR: red; FONT-WEIGHT: bold;">
+							<h:outputText
+								value="#{openingAccountBalanceBean.differenceLoAmount}"
+								id="diffAmountLo">
+								<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+							</h:outputText>
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+			</rich:dataTable>
+
+			<table width="100%">
+				<tr align="center">
+					<td><h:commandButton value="Save"
+							onclick="#{rich:component('saveJournal')}.show();return false" />
+						<a4j:jsFunction name="submitJournal"
+							action="#{openingAccountBalanceBean.save()}" execute="@form"
+							render="@form" /> &#160;</td>
+				</tr>
+			</table>
+		</h:form>
+
+		<!-- save -->
+		<rich:popupPanel modal="true" id="saveJournal"
+			styleClass="popup-panel" width="400" height="200">
+			<f:facet name="header">Confirmation</f:facet>
+			<div class="panel-image">
+				<h:graphicImage name="confirm.png" styleClass="image-confirm" />
+			</div>
+			<div class="popup-message">
+				<h:outputText value="#{messages['label_confirmDailog']}"
+					styleClass="popup-message-text" />
+			</div>
+			<div class="popup-button">
+				<input type="button" value="OK"
+					onclick="#{rich:component('saveJournal')}.hide();submitJournal();return false" />&#160;
+				<input type="button" value="Cancel"
+					onclick="#{rich:component('saveJournal')}.hide();return false" />
+			</div>
+		</rich:popupPanel>
+
+	</ui:define>
+
+</ui:composition>

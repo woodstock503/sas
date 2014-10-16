@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="refresh"
+		content="#{session.maxInactiveInterval};url=#{request.contextPath}/faces/timeout.xhtml?faces-redirect=true" />
+	<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
+	<link rel="icon" href="#{resource['favicon.ico']}" />
+	<h:outputStylesheet name="custom-style.css" />
+	<h:outputScript name="saacPlus.js"></h:outputScript>
+</h:head>
+
+<h:body>
+
+	<div style="text-align: center;">
+		<div class="sas-content">
+			<h:form id="topForm">
+				<ui:include src="header.xhtml" />
+				<br />
+				<ui:include src="toolbarMenu.xhtml" />
+			</h:form>
+			<br />
+			<div style="width: 100%">
+				<!-- 
+				<ui:insert name="header" />
+ -->
+				<div style="float: left;">
+					<h2>
+						<ui:insert name="subheader" />
+					</h2>
+				</div>
+				<div>
+					<h:messages globalOnly="true" />
+				</div>
+				<div style="clear: both;"></div>
+				<ui:insert name="main" />
+			</div>
+		</div>
+	</div>
+	<div style="width: 100%;text-align: center;">
+		<footer>
+			<div id="footer-wrapper">
+				<p>
+					Powered by <a href="http://www.sbalao.com">SBA Lao</a>
+				</p>
+			</div>
+		</footer>
+	</div>
+
+	<rich:popupPanel modal="true" id="confirmation" width="400"
+		height="200" style="padding: 0;">
+		<f:facet name="header">Confirmation</f:facet>
+		<div style="float: left; margin-left: 20px; margin-top: 20px;">
+			<h:graphicImage name="confirm.png" width="60" />
+		</div>
+		<div
+			style="margin-top: 30px; margin-left: 85px; position: absolute; text-align: left; width: 315px;">
+			<h:outputText value="#{messages['label_confirmDailog']}"
+				style="font-size: medium;" />
+		</div>
+		<div
+			style="text-align: center; width: 400px; margin-top: 120px; position: absolute;">
+			<input type="button" value="OK"
+				onclick="#{rich:component('confirmation')}.hide();submit();return false" />&#160;
+			<input type="button" value="Cancel"
+				onclick="#{rich:component('confirmation')}.hide();return false" />
+		</div>
+	</rich:popupPanel>
+</h:body>
+</html>

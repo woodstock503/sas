@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{branchBean.id}"/>
+		<f:event type="preRenderView" listener="#{branchBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Branch"/>
+
+	<ui:define name="header">
+		Branch
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Branch
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+	<h:form id="view">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="branchBeanBranchBranchName" value="Branch Name:"/>
+			<h:outputText id="branchBeanBranchBranchName" value="#{branchBean.branch.branchName}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchBranchNameEn" value="Branch Name En:"/>
+			<h:outputText id="branchBeanBranchBranchNameEn" value="#{branchBean.branch.branchNameEn}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchTaxId" value="Tax Id:"/>
+			<h:outputText id="branchBeanBranchTaxId" value="#{branchBean.branch.taxId}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchEstablishDateTime" value="Establish Date Time:"/>
+			<h:outputText id="branchBeanBranchEstablishDateTime" value="#{branchBean.branch.establishDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>			
+			<h:outputLabel for="branchBeanBranchCompany" value="Company:"/>
+			<h:outputText id="branchBeanBranchCompany" value="#{(sessionBean.local)? branchBean.branch.company.companyName : branchBean.branch.company.companyNameEn}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchAddress" value="Address:"/>
+			<h:outputText id="branchBeanBranchAddress" value="#{branchBean.branch.address}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchTelephone" value="Tel No.:"/>
+			<h:outputText id="branchBeanBranchTelephone" value="#{branchBean.branch.telephone}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchFax" value="Fax No.:"/>
+			<h:outputText id="branchBeanBranchFax" value="#{branchBean.branch.fax}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchEmail" value="E-mail:"/>
+			<h:outputText id="branchBeanBranchEmail" value="#{branchBean.branch.email}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchVision" value="Vision:"/>
+			<h:outputText id="branchBeanBranchVision" value="#{branchBean.branch.vision}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchMission" value="Mission:"/>
+			<h:outputText id="branchBeanBranchMission" value="#{branchBean.branch.mission}"/>
+			<h:outputText/>			
+			<h:outputLabel for="branchBeanBranchCreateBy" value="Create By:"/>
+			<h:outputText id="branchBeanBranchCreateBy" value="#{branchBean.branch.createBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchCreateDateTime" value="Create Date Time:"/>
+			<h:outputText id="branchBeanBranchCreateDateTime" value="#{branchBean.branch.createDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchUpdateBy" value="Update By:"/>
+			<h:outputText id="branchBeanBranchUpdateBy" value="#{branchBean.branch.updateBy}"/>
+			<h:outputText/>
+			<h:outputLabel for="branchBeanBranchUpdateDateTime" value="Update Date Time:"/>
+			<h:outputText id="branchBeanBranchUpdateDateTime" value="#{branchBean.branch.updateDateTime}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+			</h:outputText>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:commandButton value="View All" action="search?faces-redirect=true" styleClass="btn btn-primary"/> &nbsp; 
+			<h:commandButton value="Edit" action="create?faces-redirect=true" includeViewParams="true" styleClass="btn btn-primary"/>&nbsp; 
+		</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

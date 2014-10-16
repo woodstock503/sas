@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{journalTransactionBean.id}" />
+		<f:event type="preRenderView"
+			listener="#{journalTransactionBean.retrieve()}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Journal Transaction" />
+
+	<ui:define name="header">
+		#{messages['jaurnalTransaction_menu_name']}
+	</ui:define>
+
+	<ui:define name="subheader">
+	</ui:define>
+
+	<ui:define name="footer" />
+
+	<ui:define name="main">
+
+		<h:form id="transaction">
+			<rich:messages id="txtMessages" />
+			<p:growl id="messages" showDetail="true" />
+			<br />
+			<table>
+				<tr>
+					<td><p:outputLabel
+							value="#{messages['journalTransaction_billDate']} :" /></td>
+					<td><p:calendar id="billDate"
+							value="#{journalTransactionBean.transactionMaster.billDate}"
+							pattern="dd/MM/yyyy" navigator="true"></p:calendar></td>
+					<td><p:outputLabel
+							value="#{messages['journalTransaction_accountBook']} :" /></td>
+					<td><p:selectOneMenu id="accountBook" required="true"
+							label="Account Book" converter="#{accountBookBean.converter}"
+							value="#{journalTransactionBean.transactionMaster.accountBook}">
+							<f:selectItem itemLabel=" " />
+							<f:selectItems value="#{journalTransactionBean.accountBookList}"
+								var="item"
+								itemLabel="#{item.accountBookCode} - #{(localeBean.isLocal)? item.accountBookName : item.accountBookNameEn}" />
+							<f:ajax event="change" execute="@this billDate" render="@form"
+								listener="#{journalTransactionBean.generateCertifyNo()}" />
+						</p:selectOneMenu></td>
+				</tr>
+				<tr>
+					<td><p:outputLabel
+							value="#{messages['journalTransaction_certifyNo']} :" /></td>
+					<td><p:inputText
+							value="#{journalTransactionBean.transactionMaster.certifyNo}"
+							required="true" label="Certify No." onfocus="this.select();"
+							id="certifyNo" /></td>
+					<td><p:outputLabel
+							value="#{messages['journalTransaction_referenceNo']} :" /></td>
+					<td><p:inputText onfocus="this.select();"
+							value="#{journalTransactionBean.transactionMaster.referenceNo}"
+							id="referenceNo" /></td>
+				</tr>
+				<tr>
+					<td><p:outputLabel
+							value="#{messages['journalTransaction_description']} :" /></td>
+					<td colspan="4"><p:inputText style="width:100%"
+							onfocus="this.select();" id="description"
+							value="#{journalTransactionBean.transactionMaster.description}" />
+					</td>
+				</tr>
+				<tr>
+					<td><p:outputLabel
+							value="#{messages['journalTransaction_description']} (EN) :" /></td>
+					<td colspan="4"><p:inputText style="width:100%"
+							onfocus="this.select();" id="descriptionEn"
+							value="#{journalTransactionBean.transactionMaster.descriptionEn}" />
+					</td>
+				</tr>
+			</table>
+			<br />
+			<h:commandLink render="transaction" styleClass="add-button"
+				title="Add">
+				<f:ajax event="action" execute="@form" render="@form"
+					listener="#{journalTransactionBean.addTransaction()}" />
+			</h:commandLink>
+			<br />
+
+
+			<p:dataTable value="#{journalTransactionBean.transactionList}"
+				style="width:100%;" styleClass="journal_table" var="item"
+				id="repeat" rowIndexVar="rowIndex">
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column style="text-align:center;"
+							headerText="#{messages['journalTransaction_no']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_accountCode']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_accountType']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_department']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_local_Description']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_en_Description']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_amount_Debit']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_amount_Credit']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_currency']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_rate']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_local_Amount_Debit']}" />
+						<p:column style="text-align:center"
+							headerText="#{messages['journalTransaction_local_Amount_Credit']}" />
+						<p:column headerText="#{messages['journalTransaction_remove']}" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column style="text-align:center;width:50px;">
+					<h:outputText value="#{rowIndex+1}" style="text-align:center" />
+				</p:column>
+				<p:column>
+					<p:autoComplete id="accountCode" dropdown="true" var="chart"
+						converter="#{chartOfAccountBean.converter}" itemValue="#{chart}"
+						itemLabel="#{chart.chartOfAccountCode}"
+						value="#{item.chartOfAccount}"
+						completeMethod="#{journalTransactionBean.complete}">
+						<p:ajax event="itemSelect" process="@form"
+							listener="#{journalTransactionBean.selectAccountCode(rowIndex)}"
+							update="accountTypeName departmentList loName enName amountDebit amountCredit currency rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo">
+						</p:ajax>
+					</p:autoComplete>
+				</p:column>
+				<p:column>
+					<h:outputText id="accountTypeName"
+						value="#{(sessionBean.local)? item.accountType.accountTypeName : item.accountType.accountTypeNameEn}" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="departmentList"
+						converter="#{departmentBean.converter}" value="#{item.department}"
+						style="width:60px;">
+						<f:selectItem itemLabel=" " />
+						<f:selectItems value="#{journalTransactionBean.departmentList}"
+							var="dep"
+							itemLabel="#{(sessionBean.local)? dep.departmentName : dep.departmentNameEn}">
+						</f:selectItems>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{item.description}" size="20" id="loName" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{item.descriptionEn}" size="20" id="enName" />
+				</p:column>
+				<p:column>
+					<p:inputText style="text-align:right;" size="12"
+						onfocus="this.select();" value="#{item.amountDebit}"
+						id="amountDebit" onkeypress="return isNumberKey(event,this.value)">
+						<f:ajax event="change" execute="@all"
+							render="amountDebit amountCredit currency rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo"
+							listener="#{journalTransactionBean.calculate(rowIndex)}" />
+						<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+					</p:inputText>
+				</p:column>
+				<p:column>
+					<p:inputText style="text-align:right;" size="12"
+						onfocus="this.select();"
+						onkeypress="return isNumberKey(event,this.value)"
+						id="amountCredit" value="#{item.amountCredit}">
+						<f:ajax event="change" execute="@all"
+							render="amountDebit amountCredit rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo"
+							listener="#{journalTransactionBean.calculate(rowIndex)}" />
+						<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+					</p:inputText>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{item.rate}" style="width:45px;"
+						converter="#{rateBean.converter}" id="currency">
+						<f:selectItems value="#{journalTransactionBean.rateList}"
+							var="rate" itemLabel="#{rate.currency.abbreviation}" />
+						<f:ajax event="change" execute="@all"
+							render="amountDebit amountCredit rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo"
+							listener="#{journalTransactionBean.changeRate(rowIndex)}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:inputText style="text-align:right;" id="rate" size="6"
+						onfocus="this.select();"
+						onkeypress="return isNumberKey(event,this.value)"
+						value="#{item.transactionRate}">
+						<f:ajax event="change" execute="@all"
+							render="amountDebit amountCredit currency rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo"
+							listener="#{journalTransactionBean.calculateRate(rowIndex)}" />
+						<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+					</p:inputText>
+				</p:column>
+				<p:column>
+					<p:inputText style="text-align:right;" size="14"
+						onfocus="this.select();" id="loAmountDebit"
+						onkeypress="return isNumberKey(event,this.value)"
+						value="#{item.amountDebitLo}">
+						<f:ajax event="change" execute="@all"
+							render="amountDebit amountCredit currency rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo"
+							listener="#{journalTransactionBean.calculateLoAmountDebit(rowIndex)}" />
+						<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+					</p:inputText>
+				</p:column>
+				<p:column style="text-align:right">
+					<p:inputText style="text-align:right;" size="14"
+						onfocus="this.select();" id="loAmountCredit"
+						onkeypress="return isNumberKey(event,this.value)"
+						value="#{item.amountCreditLo}">
+						<a4j:ajax event="change" execute="@all"
+							render="amountDebit amountCredit currency rate loAmountDebit loAmountCredit :transaction:totalAmountDebit :transaction:totalAmountCredit :transaction:totalLoAmtDebit :transaction:totalLoAmtCredit :transaction:diffAmount :transaction:diffAmountLo"
+							listener="#{journalTransactionBean.calculateLoAmountCredit(rowIndex)}" />
+						<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+					</p:inputText>
+				</p:column>
+				<p:column footerClass="remove-column" headerClass="remove-column">
+					<a4j:commandLink styleClass="remove-button" title="Delete"
+						id="remove" action="#{journalTransactionBean.deleteTransaction()}"
+						execute="@all" render="@all">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{journalTransactionBean.selectedDelete}" />
+					</a4j:commandLink>
+				</p:column>
+			</p:dataTable>
+			<br />
+			<p:panelGrid style="margin:auto;">
+				<f:facet name="header">
+					<p:row>
+						<p:column style="width:100px;">
+							<h:outputText
+								value="#{messages['journalTransaction_amount_Debit']}" />
+						</p:column>
+						<p:column style="width:100px;">
+							<h:outputText
+								value="#{messages['journalTransaction_amount_Credit']}" />
+						</p:column>
+						<p:column style="width:100px;">
+							<h:outputText
+								value="#{messages['journalTransaction_amount_dr_cr']}" />
+						</p:column>
+						<p:column style="width:100px;">
+							<h:outputText
+								value="#{messages['journalTransaction_local_Amount_Debit']}" />
+						</p:column>
+						<p:column style="width:100px;">
+							<h:outputText
+								value="#{messages['journalTransaction_local_Amount_Credit']}" />
+						</p:column>
+						<p:column style="width:100px;">
+							<h:outputText
+								value="#{messages['journalTransaction_local_Amount_dr_cr']}" />
+						</p:column>
+					</p:row>
+				</f:facet>
+				<p:row>
+					<p:column style="text-align:right">
+						<h:outputText
+							value="#{journalTransactionBean.transactionMaster.totalAmountDebit}"
+							id="totalAmountDebit">
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column style="text-align:right">
+						<h:outputText
+							value="#{journalTransactionBean.transactionMaster.totalAmountCredit}"
+							id="totalAmountCredit">
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column style="text-align:right">
+						<h:outputText value="#{journalTransactionBean.differenceAmount}"
+							style="text-align:right;FONT-SIZE: medium;COLOR: red; FONT-WEIGHT: bold;"
+							id="diffAmount">
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column style="text-align:right">
+						<h:outputText
+							value="#{journalTransactionBean.transactionMaster.totalAmountCreditLo}"
+							id="totalLoAmtCredit">
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column style="text-align:right">
+						<h:outputText
+							value="#{journalTransactionBean.transactionMaster.totalAmountDebitLo}"
+							id="totalLoAmtDebit">
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column style="text-align:right">
+						<h:outputText value="#{journalTransactionBean.differenceAmountLo}"
+							style="text-align:right;FONT-SIZE: medium;COLOR: red; FONT-WEIGHT: bold;"
+							id="diffAmountLo">
+							<f:convertNumber pattern="#{sessionBean.company.digitPattern}" />
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+
+			<br />
+			<table width="100%">
+				<tr align="center">
+					<td><p:commandButton value="Save"
+							onclick="#{rich:component('saveJournal')}.show();return false" />
+						<a4j:jsFunction name="submitJournal"
+							action="#{journalTransactionBean.save()}" execute="@form"
+							render="@form" /> &#160; <p:commandButton value="Clear"
+							onclick="#{rich:component('clearJournal')}.show();return false" />
+						<a4j:jsFunction name="clearJournal"
+							action="#{journalTransactionBean.clearData()}" execute="@this"
+							render="@form" /> &#160; <p:commandButton
+							rendered="#{!empty journalTransactionBean.id}" value="Cancel"
+							action="/view/transactionMaster/search?faces-redirect=true"
+							styleClass="btn btn-primary" /></td>
+				</tr>
+			</table>
+		</h:form>
+
+		<!-- save -->
+		<rich:popupPanel modal="true" id="saveJournal"
+			styleClass="popup-panel" width="400" height="200">
+			<f:facet name="header">Confirmation</f:facet>
+			<div class="panel-image">
+				<h:graphicImage name="confirm.png" styleClass="image-confirm" />
+			</div>
+			<div class="popup-message">
+				<h:outputText value="#{messages['label_confirmDailog']}"
+					styleClass="popup-message-text" />
+			</div>
+			<div class="popup-button">
+				<input type="button" value="OK"
+					onclick="#{rich:component('saveJournal')}.hide();submitJournal();return false" />&#160;
+				<input type="button" value="Cancel"
+					onclick="#{rich:component('saveJournal')}.hide();return false" />
+			</div>
+		</rich:popupPanel>
+
+
+		<!-- clear -->
+		<rich:popupPanel modal="true" id="clearJournal"
+			styleClass="popup-panel" width="400" height="200">
+			<f:facet name="header">Confirmation</f:facet>
+			<div class="panel-image">
+				<h:graphicImage name="confirm.png" styleClass="image-confirm" />
+			</div>
+			<div class="popup-message">
+				<h:outputText value="คุณต้องการ Clear ข้อมูลนี้จริง ?"
+					styleClass="popup-message-text" />
+			</div>
+			<div class="popup-button">
+				<input type="button" value="OK"
+					onclick="#{rich:component('clearJournal')}.hide();clearJournal();return false" />&#160;
+				<input type="button" value="Cancel"
+					onclick="#{rich:component('clearJournal')}.hide();return false" />
+			</div>
+		</rich:popupPanel>
+
+	</ui:define>
+
+</ui:composition>

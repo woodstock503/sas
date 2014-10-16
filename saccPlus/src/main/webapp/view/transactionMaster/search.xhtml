@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{transactionMasterBean.page}"/>
+		<f:event type="preRenderView" listener="#{transactionMasterBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Transaction Master entities"/>
+
+	<ui:define name="header">
+		Transaction Master
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Transaction Master entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="4">
+						<h:outputLabel for="rateBeanExampleDateFrom" value="Bill Date:"/>
+						<h:panelGroup>
+							<rich:calendar id="rateBeanExampleDateFrom"  datePattern="dd/MM/yyyy" locale="en/US" value="#{transactionMasterBean.example.dateFrom}" />
+							<h:message for="rateBeanExampleDateFrom" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputLabel for="rateBeanExampleRateDateTo" value="-"/>
+						<h:panelGroup>
+							<rich:calendar id="rateBeanExampleRateDateTo" datePattern="dd/MM/yyyy"  locale="en/US" value="#{transactionMasterBean.example.dateTo}"/>
+							<h:message for="rateBeanExampleRateDateTo" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputLabel for="transactionMasterBeanExampleCertifyNo" value="Certify No:"/>
+						<h:panelGroup>
+							<h:inputText id="transactionMasterBeanExampleCertifyNo" value="#{transactionMasterBean.example.certifyNo}"/>
+							<h:message for="transactionMasterBeanExampleCertifyNo" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputText/>
+						<h:outputLabel for="transactionMasterBeanExampleReferenceNo" value="Reference No:"/>
+						<h:panelGroup>
+							<h:inputText id="transactionMasterBeanExampleReferenceNo" value="#{transactionMasterBean.example.referenceNo}"/>
+							<h:message for="transactionMasterBeanExampleReferenceNo" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+							<h:commandButton  value="Search" action="#{transactionMasterBean.search}" styleClass="btn btn-primary"/>
+					</h:panelGrid>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			
+			<br/>
+			<br/>
+			<rich:dataTable id="transactionMasterBeanPageItems" styleClass="data-table" 
+			columnClasses="align-center,align-center,align-left,align-left,align-center,align-center"
+			value="#{transactionMasterBean.pageItems}" var="_item" style="width:100%">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Bill Date"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemBillDate" value="#{_item.billDate}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Certify No"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCertifyNo" value="#{_item.certifyNo}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Reference No"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemReferenceNo" value="#{_item.referenceNo}"/>
+					</h:link>
+				</h:column>				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create By"/>
+					</f:facet>
+					<h:link outcome="/view/journalTransaction">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateUser" value="#{_item.createBy}"/>
+					</h:link>
+				</h:column>		
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Create Date"/>
+					</f:facet>
+					<h:link outcome="/view/currency/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreateeDateTime" value="#{_item.createDateTime}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>	
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Update Date"/>
+					</f:facet>
+					<h:link outcome="/view/currency/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemUpdateDateTime" value="#{_item.updateDateTime}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="en/US"/>
+						</h:outputText>
+					</h:link>
+				</h:column>			
+			</rich:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{transactionMasterBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>
