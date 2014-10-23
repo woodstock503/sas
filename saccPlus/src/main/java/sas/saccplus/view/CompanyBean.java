@@ -16,8 +16,8 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+//import org.richfaces.event.FileUploadEvent;
+//import org.richfaces.model.UploadedFile;
 
 import sas.saccplus.dto.DTOCompany;
 import sas.saccplus.model.Company;
@@ -297,11 +297,11 @@ public class CompanyBean implements Serializable
 		}
 	}
 
-	public void listener(FileUploadEvent event) throws Exception {
-		UploadedFile item = event.getUploadedFile();
-		company.setLogo(item.getData());
-
-	}
+//	public void listener(FileUploadEvent event) throws Exception {
+//		UploadedFile item = event.getUploadedFile();
+//		company.setLogo(item.getData());
+//
+//	}
 
 	public String clearUploadData() {	
 		return null;

@@ -15,8 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.focus.FocusManager;
+//import org.richfaces.application.ServiceTracker;
+//import org.richfaces.focus.FocusManager;
 
 import sas.saccplus.model.AccountBalance;
 import sas.saccplus.model.ChartOfAccount;
@@ -183,14 +183,14 @@ public class OpeningAccountBalanceBean implements Serializable{
 
 	/** manage tab index**/
 
-	public void tabToLoAmountCredit(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("loAmountCredit");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
+//	public void tabToLoAmountCredit(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("loAmountCredit");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
 	/** manage tab index**/
 
 	public List<AccountBalance> getAccountBalanceList() {

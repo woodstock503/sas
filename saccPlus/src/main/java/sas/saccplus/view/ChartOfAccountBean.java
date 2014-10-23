@@ -16,8 +16,8 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.component.UITree;
-import org.richfaces.event.TreeSelectionChangeEvent;
+//import org.richfaces.component.UITree;
+//import org.richfaces.event.TreeSelectionChangeEvent;
 
 import sas.saccplus.dto.DTOChartOfAccount;
 import sas.saccplus.model.ChartOfAccount;
@@ -156,49 +156,49 @@ public class ChartOfAccountBean implements Serializable {
 		model.setChartOfAccountCodeMain("");
 	}
 
-	public void selectedChart(TreeSelectionChangeEvent event){
-		try{
-			if (this.conversation.isTransient())
-			{
-				this.conversation.begin();
-			}
-			List<Object> selection = new ArrayList<Object>(event.getNewSelection());
-			if(selection!=null){
-				Object currentSelectionKey = selection.get(0);
-				UITree tree = (UITree) event.getSource();
-				tree.setRowKey(currentSelectionKey);
-				DTOChartOfAccount selected = (DTOChartOfAccount) tree.getRowData();
-
-				if(showAdd||showEdit){
-					boolean isChild = false;
-					boolean isMySelf = false;
-					if(model.getChartOfAccountCode()!=null&&model.getChartOfAccountCode().equals(selected.getChartOfAccountCode())){
-						isMySelf = true;
-					}
-					List<DTOChartOfAccount> nodesList = new ArrayList<DTOChartOfAccount>();
-					if(model.getChartOfAccountCode()!=null&&!model.getChartOfAccountCode().trim().equals("")){
-						checkIsChild(model,nodesList);
-					}
-					for(DTOChartOfAccount c:nodesList){
-						if(selected.getChartOfAccountCode().equals(c.getChartOfAccountCode())){
-							isChild = true;
-							break;
-						}
-					}
-					if(!isChild&&!isMySelf){
-						model.setChartOfAccountCodeMain(selected.getChartOfAccountCode());
-					}
-				}else{
-					this.model = selected;
-					showAdd=false;
-					showView=true;
-					showEdit = false;
-				}
-			}
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
+//	public void selectedChart(TreeSelectionChangeEvent event){
+//		try{
+//			if (this.conversation.isTransient())
+//			{
+//				this.conversation.begin();
+//			}
+//			List<Object> selection = new ArrayList<Object>(event.getNewSelection());
+//			if(selection!=null){
+//				Object currentSelectionKey = selection.get(0);
+//				UITree tree = (UITree) event.getSource();
+//				tree.setRowKey(currentSelectionKey);
+//				DTOChartOfAccount selected = (DTOChartOfAccount) tree.getRowData();
+//
+//				if(showAdd||showEdit){
+//					boolean isChild = false;
+//					boolean isMySelf = false;
+//					if(model.getChartOfAccountCode()!=null&&model.getChartOfAccountCode().equals(selected.getChartOfAccountCode())){
+//						isMySelf = true;
+//					}
+//					List<DTOChartOfAccount> nodesList = new ArrayList<DTOChartOfAccount>();
+//					if(model.getChartOfAccountCode()!=null&&!model.getChartOfAccountCode().trim().equals("")){
+//						checkIsChild(model,nodesList);
+//					}
+//					for(DTOChartOfAccount c:nodesList){
+//						if(selected.getChartOfAccountCode().equals(c.getChartOfAccountCode())){
+//							isChild = true;
+//							break;
+//						}
+//					}
+//					if(!isChild&&!isMySelf){
+//						model.setChartOfAccountCodeMain(selected.getChartOfAccountCode());
+//					}
+//				}else{
+//					this.model = selected;
+//					showAdd=false;
+//					showView=true;
+//					showEdit = false;
+//				}
+//			}
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
 
 	public String update() {
 		try {

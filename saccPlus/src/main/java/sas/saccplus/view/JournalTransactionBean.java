@@ -20,8 +20,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.CellEditEvent;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.focus.FocusManager;
+//import org.richfaces.application.ServiceTracker;
+//import org.richfaces.focus.FocusManager;
 
 import sas.saccplus.dto.DTOChartOfAccount;
 import sas.saccplus.dto.DTOTransactionDetail;
@@ -446,103 +446,103 @@ public class JournalTransactionBean implements Serializable{
 	}  
 
 	/** manage tab index**/
-	public void tabToAccountCodeList() {
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("accountCodeList");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToDepartmentList() {
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("departmentList");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToLoName(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("loName");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToAmountDebit(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("amountDebit");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToAmountCredit(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("amountCredit");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToCurrency(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("currency");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToRate(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("rate");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToLoAmountDebit(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("loAmountDebit");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToLoAmountCredit(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("loAmountCredit");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToAddTransaction(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("addTransaction");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-
-	public void tabToDescription(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("description");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public void tabToRemove(){
-		try{
-			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
-			focusManager.focus("remove");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
+//	public void tabToAccountCodeList() {
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("accountCodeList");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToDepartmentList() {
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("departmentList");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToLoName(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("loName");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToAmountDebit(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("amountDebit");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToAmountCredit(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("amountCredit");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToCurrency(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("currency");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToRate(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("rate");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToLoAmountDebit(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("loAmountDebit");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToLoAmountCredit(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("loAmountCredit");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToAddTransaction(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("addTransaction");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//
+//	public void tabToDescription(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("description");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
+//	public void tabToRemove(){
+//		try{
+//			FocusManager focusManager = ServiceTracker.getService(FocusManager.class);
+//			focusManager.focus("remove");
+//		}catch(Exception ex){
+//			ex.printStackTrace();
+//		}
+//	}
 	/** manage tab index**/
 
 	public List<DTOTransactionDetail> getTransactionList() {

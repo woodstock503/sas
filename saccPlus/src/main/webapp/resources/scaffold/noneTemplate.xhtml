@@ -5,25 +5,40 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<meta name="generator" content="Bootply" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
 	<link rel="icon" href="#{resource['favicon.ico']}" />
-	<h:outputStylesheet name="custom-style.css" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="bootstrap/js" name="bootstrap.min.js"></h:outputScript>
+	<h:outputStylesheet library="bootstrap/css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="bootstrap/css" name="bootstrap-theme.css" />
+	
+	
 </h:head>
 
 <h:body>
 
-	<div class="container forgecontainer">  
-		<div class="login">
-			<ui:insert name="main"/>
-			<br />
-			<p:messages id="messages" showDetail="false"
-			autoUpdate="true" 
-			closable="true" />
-		</div>
-		<div class="login-footer">
-			Powered by <a href="http://www.sbalao.com">SBA Lao</a>
+	<div class="container">
+		<div id="content">
+			<div class="row">
+				<div class="col-md-12"><ui:insert name="header" /></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12"><ui:insert name="subheader" /></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12"><ui:insert name="main" /></div>
+			</div>
 		</div>
 	</div>
+
+	<footer>
+		<div id="footer-wrapper">Powered by <a href="http://www.sbalao.com">SBA Lao</a></div>
+	</footer>
 
 </h:body>
 </html>
